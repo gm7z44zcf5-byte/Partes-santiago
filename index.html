@@ -22,6 +22,7 @@
  --bg:#f2f3f7;
  --text:#111827;
  --muted:#6b7280;
+ --border:#dedfe3;
 }
 
 body{
@@ -103,9 +104,9 @@ button{
  color:#fff;
 }
 
-.blue{background:var(--blue)}
-.green{background:var(--green)}
-.black{background:#111}
+.blue{background:var(--blue);color:#fff}
+.green{background:var(--green);color:#fff}
+.black{background:#111;color:#fff}
 .light{background:#eef0f4;color:#111}
 .red{background:#fee2e2;color:#991b1b}
 
@@ -260,6 +261,17 @@ button{
  color:var(--muted);
 }
 
+.memory{
+ background:#eff6ff;
+ border:1px solid #bfdbfe;
+ color:#1e40af;
+ padding:12px 14px;
+ border-radius:15px;
+ margin-bottom:14px;
+ font-size:14px;
+ font-weight:700;
+}
+
 .hidden{
  display:none!important;
 }
@@ -279,9 +291,9 @@ button{
 }
 
 
-/* =========================
-   HOJA PROFESIONAL DEL PDF
-   ========================= */
+/* =====================================================
+   HOJA PROFESIONAL PDF
+   ===================================================== */
 
 .print-sheet{
  display:none;
@@ -309,7 +321,7 @@ button{
   display:block!important;
   width:210mm;
   height:297mm;
-  padding:24mm 18mm 18mm;
+  padding:17mm 16mm 15mm;
   background:#fff;
   color:#111;
   font-family:Arial,Helvetica,sans-serif;
@@ -318,18 +330,36 @@ button{
 
  .print-header{
   text-align:center;
-  margin-bottom:8mm;
+  margin-bottom:7mm;
  }
 
  .print-header h1{
-  font-size:19pt;
-  margin:0 0 3mm;
+  font-size:18pt;
+  margin:0 0 4mm;
   font-weight:800;
+  letter-spacing:.2px;
  }
 
- .print-meta{
+ .print-meta-table{
+  width:100%;
+  border-collapse:collapse;
   font-size:9.5pt;
   margin-bottom:5mm;
+ }
+
+ .print-meta-table td{
+  border:1.1px solid #222;
+  padding:3mm 3mm;
+ }
+
+ .meta-label{
+  font-weight:800;
+  background:#f1f1f1;
+  width:14%;
+ }
+
+ .meta-value{
+  width:36%;
  }
 
  .print-table{
@@ -342,7 +372,7 @@ button{
  .print-table th,
  .print-table td{
   border:1.2px solid #222;
-  padding:2.8mm 2.5mm;
+  padding:3mm 2.5mm;
   vertical-align:middle;
  }
 
@@ -353,7 +383,7 @@ button{
  }
 
  .print-table .daycol{
-  width:19%;
+  width:20%;
  }
 
  .print-table .hourscol{
@@ -365,7 +395,7 @@ button{
  }
 
  .print-table .notecol{
-  width:39%;
+  width:38%;
  }
 
  .print-table td.hours{
@@ -379,12 +409,13 @@ button{
  .print-table td.day small{
   display:block;
   font-weight:700;
-  font-size:8.2pt;
+  font-size:8pt;
   margin-top:1mm;
  }
 
  .print-total td{
   font-weight:800;
+  font-size:10pt;
  }
 
  .print-total td:last-child{
@@ -414,9 +445,7 @@ button{
  .hero h1{
   font-size:31px;
  }
-
 }
-
 </style>
 </head>
 
@@ -426,9 +455,9 @@ button{
 <div class="wrap">
 
 
-<!-- =========================
-     PARTE PRINCIPAL
-     ========================= -->
+<!-- =====================================================
+     CABECERA
+     ===================================================== -->
 
 <section class="card hero no-print">
 
@@ -501,9 +530,9 @@ Crear / actualizar semana
 
 
 
-<!-- =========================
+<!-- =====================================================
      SEMANA
-     ========================= -->
+     ===================================================== -->
 
 <section class="card">
 
@@ -519,15 +548,17 @@ Horas de la semana
 
 </div>
 
+<div id="memoryNotice"></div>
+
 <div id="days"></div>
 
 </section>
 
 
 
-<!-- =========================
+<!-- =====================================================
      RESUMEN
-     ========================= -->
+     ===================================================== -->
 
 <section class="card summary">
 
@@ -558,9 +589,9 @@ Resumen
 
 
 
-<!-- =========================
+<!-- =====================================================
      OBRAS GUARDADAS
-     ========================= -->
+     ===================================================== -->
 
 <section class="card no-print">
 
@@ -572,6 +603,7 @@ Obras guardadas
 Guarda tus obras habituales y después selecciónalas sin escribirlas.
 </div>
 
+<br>
 
 <div class="grid2">
 
@@ -579,7 +611,6 @@ Guarda tus obras habituales y después selecciónalas sin escribirlas.
  id="newSite"
  placeholder="Ej. Obra 10043"
 >
-
 
 <button
  class="light"
@@ -597,9 +628,9 @@ Guarda tus obras habituales y después selecciónalas sin escribirlas.
 
 
 
-<!-- =========================
+<!-- =====================================================
      PARTES GUARDADOS
-     ========================= -->
+     ===================================================== -->
 
 <section class="card no-print">
 
@@ -626,9 +657,9 @@ Se guardan en este dispositivo.
 
 
 
-<!-- ==================================================
-     HOJA QUE SE UTILIZA SOLAMENTE PARA EL PDF
-     ================================================== -->
+<!-- =====================================================
+     HOJA PDF
+     ===================================================== -->
 
 <section class="print-sheet">
 
@@ -638,20 +669,32 @@ Se guardan en este dispositivo.
 PARTE DE HORAS SEMANALES
 </h1>
 
-<div class="print-meta">
+</div>
 
-<b>Nombre:</b>
+
+<table class="print-meta-table">
+
+<tr>
+
+<td class="meta-label">
+Nombre
+</td>
+
+<td class="meta-value">
 <span id="pName"></span>
+</td>
 
-&nbsp;&nbsp;&nbsp;
+<td class="meta-label">
+Semana
+</td>
 
-<b>Semana:</b>
+<td class="meta-value">
 <span id="pDates"></span>
+</td>
 
-</div>
+</tr>
 
-</div>
-
+</table>
 
 
 <table class="print-table">
@@ -704,7 +747,6 @@ TOTAL HORAS
 </table>
 
 
-
 <div class="print-footer">
 
 <span>
@@ -722,9 +764,9 @@ Parte de horas semanales
 <script>
 
 
-/* =========================
-   DATOS
-   ========================= */
+/* =====================================================
+   CONFIGURACIÓN
+   ===================================================== */
 
 const DAYS=[
  "Lunes",
@@ -737,9 +779,14 @@ const DAYS=[
 ];
 
 
+/*
+   Horas disponibles.
+   Se seleccionan mediante desplegable.
+*/
+
 const HOURS=[
  0,
- 0.5,
+ .5,
  1,
  1.5,
  2,
@@ -774,9 +821,9 @@ let week={
 
 
 
-/* =========================
+/* =====================================================
    FECHAS
-   ========================= */
+   ===================================================== */
 
 function todayISO(){
 
@@ -785,7 +832,6 @@ function todayISO(){
  return d.toISOString().slice(0,10);
 
 }
-
 
 
 function mondayOf(dateStr){
@@ -811,7 +857,6 @@ function mondayOf(dateStr){
 }
 
 
-
 function addDays(dateStr,n){
 
  const d=
@@ -826,7 +871,6 @@ function addDays(dateStr,n){
  .slice(0,10);
 
 }
-
 
 
 function fmt(dateStr){
@@ -846,7 +890,6 @@ function fmt(dateStr){
 }
 
 
-
 function fmtNum(n){
 
  return Number.isInteger(n)
@@ -857,7 +900,6 @@ function fmtNum(n){
    .replace(/\.$/,"");
 
 }
-
 
 
 function esc(s){
@@ -878,54 +920,9 @@ function esc(s){
 
 
 
-/* =========================
-   SEMANA VACÍA
-   ========================= */
-
-/*
-   LUNES A VIERNES:
-   - Trabajados por defecto
-   - 8 horas por defecto
-
-   SÁBADO Y DOMINGO:
-   - No trabajados
-   - Sin horas
-*/
-
-function blankDays(start){
-
- return DAYS.map(
-  (name,i)=>({
-
-   name:name,
-
-   date:addDays(
-    start,
-    i
-   ),
-
-   worked:i < 5,
-
-   note:"",
-
-   lines:[
-    {
-     hours:i < 5 ? "8" : "",
-     site:"",
-     note:""
-    }
-   ]
-
-  })
- );
-
-}
-
-
-
-/* =========================
+/* =====================================================
    OBRAS GUARDADAS
-   ========================= */
+   ===================================================== */
 
 function savedSites(){
 
@@ -936,7 +933,6 @@ function savedSites(){
  );
 
 }
-
 
 
 function saveSites(a){
@@ -950,27 +946,196 @@ function saveSites(a){
 
 
 
-/* =========================
+/* =====================================================
+   MEMORIA DE OBRAS
+   ===================================================== */
+
+/*
+   Guarda la última obra utilizada en cada día.
+
+   Ejemplo:
+
+   Lunes -> 10043
+   Martes -> 10043
+   Miércoles -> 10051
+
+   Cuando se crea la siguiente semana,
+   se recuperan automáticamente.
+*/
+
+function getSiteMemory(){
+
+ return JSON.parse(
+  localStorage.getItem(
+   "parte_site_memory"
+  ) || "{}"
+ );
+
+}
+
+
+function saveSiteMemory(memory){
+
+ localStorage.setItem(
+  "parte_site_memory",
+  JSON.stringify(memory)
+ );
+
+}
+
+
+function rememberSite(dayIndex,site){
+
+ if(!site)return;
+
+ const memory=
+  getSiteMemory();
+
+ memory[String(dayIndex)]=site;
+
+ saveSiteMemory(memory);
+
+}
+
+
+function rememberedSite(dayIndex){
+
+ const memory=
+  getSiteMemory();
+
+ return memory[String(dayIndex)] || "";
+
+}
+
+
+/*
+   Busca la última obra real utilizada
+   en el historial.
+
+   Esto permite que la memoria sea más inteligente:
+   si la semana anterior se usó una obra,
+   esa obra pasa a la siguiente.
+*/
+
+function rememberSitesFromWeek(){
+
+ if(!week || !week.days)return;
+
+ const memory=
+  getSiteMemory();
+
+ week.days.forEach(
+  (d,i)=>{
+
+   const used=
+    d.lines
+    .map(l=>l.site)
+    .filter(Boolean);
+
+   if(used.length){
+
+    memory[String(i)] =
+     used[used.length-1];
+
+   }
+
+  }
+ );
+
+ saveSiteMemory(memory);
+
+}
+
+
+
+/* =====================================================
+   CREAR DÍAS
+   ===================================================== */
+
+/*
+   POR DEFECTO:
+
+   Lunes      8h
+   Martes     8h
+   Miércoles 8h
+   Jueves     8h
+   Viernes    8h
+   Sábado     0h
+   Domingo    0h
+
+   Y recuerda automáticamente
+   la obra del mismo día.
+*/
+
+function blankDays(start){
+
+ return DAYS.map(
+  (name,i)=>{
+
+   const defaultWorked=
+    i<5;
+
+   const defaultHours=
+    i<5
+    ? "8"
+    : "";
+
+   const remembered=
+    rememberedSite(i);
+
+
+   return {
+
+    name:name,
+
+    date:addDays(
+     start,
+     i
+    ),
+
+    worked:
+     defaultWorked,
+
+    note:"",
+
+    lines:[
+     {
+      hours:defaultHours,
+      site:remembered,
+      note:""
+     }
+    ]
+
+   };
+
+  }
+ );
+
+}
+
+
+
+/* =====================================================
    CREAR SEMANA
-   ========================= */
+   ===================================================== */
 
 function createWeek(){
 
  const start=
- mondayOf(
-  document.getElementById(
-   "weekStart"
-  ).value ||
-  todayISO()
- );
+  mondayOf(
+   document.getElementById(
+    "weekStart"
+   ).value ||
+   todayISO()
+  );
 
 
  const old=
- JSON.parse(
-  localStorage.getItem(
-   "parte_current"
-  ) || "null"
- );
+  JSON.parse(
+   localStorage.getItem(
+    "parte_current"
+   ) || "null"
+  );
 
 
  if(
@@ -999,10 +1164,10 @@ function createWeek(){
 
 
  week.name=
- document
- .getElementById("name")
- .value
- .trim();
+  document
+  .getElementById("name")
+  .value
+  .trim();
 
 
  document
@@ -1020,19 +1185,28 @@ function createWeek(){
 
 
 
-/* =========================
+/* =====================================================
    NUEVA SEMANA
-   ========================= */
+   ===================================================== */
 
 function newBlankWeek(){
 
+ /*
+   Antes de crear la nueva semana,
+   guardamos la memoria de las obras
+   utilizadas en la actual.
+ */
+
+ rememberSitesFromWeek();
+
+
  const start=
- mondayOf(
-  document.getElementById(
-   "weekStart"
-  ).value ||
-  todayISO()
- );
+  mondayOf(
+   document.getElementById(
+    "weekStart"
+   ).value ||
+   todayISO()
+  );
 
 
  week={
@@ -1057,16 +1231,16 @@ function newBlankWeek(){
  render();
 
  toast(
-  "Nueva semana preparada: 40 h"
+  "Nueva semana preparada"
  );
 
 }
 
 
 
-/* =========================
+/* =====================================================
    SELECTOR DE HORAS
-   ========================= */
+   ===================================================== */
 
 function hourOptions(v){
 
@@ -1098,9 +1272,9 @@ function hourOptions(v){
 
 
 
-/* =========================
+/* =====================================================
    SELECTOR DE OBRAS
-   ========================= */
+   ===================================================== */
 
 function siteOptions(v){
 
@@ -1142,29 +1316,26 @@ function siteOptions(v){
  >
  ✏️ Escribir otra...
  </option>
+
  `;
 
 }
 
 
 
-/* =========================
-   HTML DE CADA DÍA
-   ========================= */
+/* =====================================================
+   HTML DÍA
+   ===================================================== */
 
 function dayHTML(d,di){
 
  const total=
-  d.worked
-  ?
   d.lines.reduce(
    (a,l)=>
     a+
     (parseFloat(l.hours)||0),
    0
-  )
-  :
-  0;
+  );
 
 
  return `
@@ -1201,12 +1372,11 @@ function dayHTML(d,di){
      ? "checked"
      : ""
     }
-
     onchange="
-    toggleWorked(
-     ${di},
-     this.checked
-    )
+     toggleWorked(
+      ${di},
+      this.checked
+     )
     "
    >
 
@@ -1236,7 +1406,7 @@ function dayHTML(d,di){
   <button
    class="addline"
    onclick="
-   addLine(${di})
+    addLine(${di})
    "
   >
   ＋ Añadir otra obra / línea
@@ -1248,10 +1418,10 @@ function dayHTML(d,di){
    rows="2"
    placeholder="Observación del día (opcional)"
    onchange="
-   dayNote(
-    ${di},
-    this.value
-   )
+    dayNote(
+     ${di},
+     this.value
+    )
    "
   >${esc(d.note||"")}</textarea>
 
@@ -1263,9 +1433,9 @@ function dayHTML(d,di){
 
 
 
-/* =========================
-   LÍNEA DE OBRA
-   ========================= */
+/* =====================================================
+   HTML LÍNEA
+   ===================================================== */
 
 function lineHTML(di,l,li){
 
@@ -1275,15 +1445,14 @@ function lineHTML(di,l,li){
 
   <div class="linegrid">
 
-
    <select
     onchange="
-    setLine(
-     ${di},
-     ${li},
-     'hours',
-     this.value
-    )
+     setLine(
+      ${di},
+      ${li},
+      'hours',
+      this.value
+     )
     "
    >
 
@@ -1296,14 +1465,13 @@ function lineHTML(di,l,li){
    </select>
 
 
-
    <select
     onchange="
-    siteChanged(
-     ${di},
-     ${li},
-     this
-    )
+     siteChanged(
+      ${di},
+      ${li},
+      this
+     )
     "
    >
 
@@ -1316,22 +1484,19 @@ function lineHTML(di,l,li){
    </select>
 
 
-
    <button
     class="remove"
     onclick="
-    removeLine(
-     ${di},
-     ${li}
-    )
+     removeLine(
+      ${di},
+      ${li}
+     )
     "
    >
    ✕
    </button>
 
-
   </div>
-
 
 
   <input
@@ -1339,14 +1504,13 @@ function lineHTML(di,l,li){
    type="text"
    placeholder="Observación de esta línea (opcional)"
    value="${esc(l.note)}"
-
    onchange="
-   setLine(
-    ${di},
-    ${li},
-    'note',
-    this.value
-   )
+    setLine(
+     ${di},
+     ${li},
+     'note',
+     this.value
+    )
    "
   >
 
@@ -1358,9 +1522,9 @@ function lineHTML(di,l,li){
 
 
 
-/* =========================
-   SELECCIONAR OBRA
-   ========================= */
+/* =====================================================
+   CAMBIO DE OBRA
+   ===================================================== */
 
 function siteChanged(
  di,
@@ -1380,11 +1544,24 @@ function siteChanged(
 
   if(v){
 
+   const clean=
+    v.trim();
+
    setLine(
     di,
     li,
     "site",
-    v.trim()
+    clean
+   );
+
+   /*
+      La obra nueva queda guardada
+      en la memoria del día.
+   */
+
+   rememberSite(
+    di,
+    clean
    );
 
   }else{
@@ -1395,12 +1572,21 @@ function siteChanged(
 
  }else{
 
-  setLine(
-   di,
-   li,
-   "site",
-   el.value
-  );
+   setLine(
+    di,
+    li,
+    "site",
+    el.value
+   );
+
+   if(el.value){
+
+    rememberSite(
+     di,
+     el.value
+    );
+
+   }
 
  }
 
@@ -1408,9 +1594,9 @@ function siteChanged(
 
 
 
-/* =========================
+/* =====================================================
    CAMBIAR DÍA
-   ========================= */
+   ===================================================== */
 
 function toggleWorked(
  di,
@@ -1420,59 +1606,22 @@ function toggleWorked(
  week.days[di].worked=v;
 
 
- if(v){
+ /*
+    Si se desmarca un día,
+    NO borramos sus datos.
+    Así puedes volver a marcarlo
+    y recuperar las horas/obra.
+ */
 
-  /*
-   Si vuelves a marcar un día
-   y está vacío, recupera las
-   8 horas por defecto.
-  */
-
-  if(
-   !week.days[di].lines.length
-  ){
-
-   week.days[di].lines=[
-    {
-     hours:"8",
-     site:"",
-     note:""
-    }
-   ];
-
-  }else if(
-   !week.days[di].lines[0].hours
-  ){
-
-   week.days[di].lines[0].hours="8";
-
-  }
-
- }else{
-
-  /*
-   Al desmarcar el día,
-   las horas dejan de contar.
-  */
-
-  week.days[di].lines.forEach(
-   l=>{
-    l.hours="";
-   }
-  );
-
- }
-
-
- render();
+ updateTotals();
 
 }
 
 
 
-/* =========================
+/* =====================================================
    CAMBIAR LÍNEA
-   ========================= */
+   ===================================================== */
 
 function setLine(
  di,
@@ -1485,15 +1634,29 @@ function setLine(
   .days[di]
   .lines[li][key]=val;
 
+
+ if(
+  key==="site" &&
+  val
+ ){
+
+  rememberSite(
+   di,
+   val
+  );
+
+ }
+
+
  updateTotals();
 
 }
 
 
 
-/* =========================
-   NOTA DEL DÍA
-   ========================= */
+/* =====================================================
+   NOTA
+   ===================================================== */
 
 function dayNote(
  di,
@@ -1506,9 +1669,9 @@ function dayNote(
 
 
 
-/* =========================
-   AÑADIR OBRA
-   ========================= */
+/* =====================================================
+   AÑADIR LÍNEA
+   ===================================================== */
 
 function addLine(di){
 
@@ -1519,7 +1682,14 @@ function addLine(di){
 
   hours:"",
 
-  site:"",
+  /*
+     Al añadir una nueva línea,
+     también proponemos la última
+     obra utilizada ese día.
+  */
+
+  site:
+   rememberedSite(di),
 
   note:""
 
@@ -1531,9 +1701,9 @@ function addLine(di){
 
 
 
-/* =========================
-   ELIMINAR OBRA
-   ========================= */
+/* =====================================================
+   ELIMINAR LÍNEA
+   ===================================================== */
 
 function removeLine(
  di,
@@ -1569,33 +1739,21 @@ function removeLine(
 
 
 
-/* =========================
-   TOTAL
-   ========================= */
+/* =====================================================
+   TOTAL HORAS
+   ===================================================== */
 
 function totalHours(){
 
  return week.days.reduce(
-  (sum,d)=>{
-
-   /*
-    Solo cuentan las horas
-    de los días marcados.
-   */
-
-   if(!d.worked){
-    return sum;
-   }
-
-   return sum+
-    d.lines.reduce(
-     (a,l)=>
-      a+
-      (parseFloat(l.hours)||0),
-     0
-    );
-
-  },
+  (sum,d)=>
+   sum+
+   d.lines.reduce(
+    (a,l)=>
+     a+
+     (parseFloat(l.hours)||0),
+    0
+   ),
   0
  );
 
@@ -1603,9 +1761,9 @@ function totalHours(){
 
 
 
-/* =========================
-   ACTUALIZAR TOTALES
-   ========================= */
+/* =====================================================
+   TOTALES
+   ===================================================== */
 
 function updateTotals(){
 
@@ -1654,21 +1812,15 @@ function updateTotals(){
  .forEach(
   (el,i)=>{
 
-   const d=
-    week.days[i];
-
-
    const t=
-    d.worked
-    ?
-    d.lines.reduce(
+    week.days[i]
+    .lines
+    .reduce(
      (a,l)=>
       a+
       (parseFloat(l.hours)||0),
      0
-    )
-    :
-    0;
+    );
 
 
    const x=
@@ -1691,9 +1843,60 @@ function updateTotals(){
 
 
 
-/* =========================
+/* =====================================================
+   AVISO DE MEMORIA
+   ===================================================== */
+
+function renderMemoryNotice(){
+
+ const memory=
+  getSiteMemory();
+
+
+ const sites=
+  Object.values(memory)
+  .filter(Boolean);
+
+
+ const unique=
+  [...new Set(sites)];
+
+
+ const el=
+  document.getElementById(
+   "memoryNotice"
+  );
+
+
+ if(!unique.length){
+
+  el.innerHTML="";
+
+  return;
+
+ }
+
+
+ el.innerHTML=`
+
+ <div class="memory">
+
+ 💾 Memoria activada:
+ las obras utilizadas anteriormente
+ se preseleccionan automáticamente
+ en la nueva semana.
+
+ </div>
+
+ `;
+
+}
+
+
+
+/* =====================================================
    RENDER
-   ========================= */
+   ===================================================== */
 
 function render(){
 
@@ -1738,13 +1941,15 @@ function render(){
 
  renderSavedSites();
 
+ renderMemoryNotice();
+
 }
 
 
 
-/* =========================
+/* =====================================================
    GUARDAR PARTE
-   ========================= */
+   ===================================================== */
 
 function savePart(){
 
@@ -1764,6 +1969,14 @@ function savePart(){
   )
   .value ||
   week.start;
+
+
+ /*
+    Antes de guardar,
+    actualizamos la memoria de obras.
+ */
+
+ rememberSitesFromWeek();
 
 
  localStorage.setItem(
@@ -1814,7 +2027,7 @@ function savePart(){
   JSON.stringify(
    history.slice(
     0,
-    20
+    50
    )
   )
  );
@@ -1830,9 +2043,9 @@ function savePart(){
 
 
 
-/* =========================
+/* =====================================================
    HISTORIAL
-   ========================= */
+   ===================================================== */
 
 function renderHistory(){
 
@@ -1874,16 +2087,10 @@ function renderHistory(){
      x.days.reduce(
       (a,d)=>
        a+
-       (
-        d.worked
-        ?
-        d.lines.reduce(
-         (b,l)=>
-          b+
-          (parseFloat(l.hours)||0),
-         0
-        )
-        :
+       d.lines.reduce(
+        (b,l)=>
+         b+
+         (parseFloat(l.hours)||0),
         0
        ),
       0
@@ -1901,7 +2108,7 @@ function renderHistory(){
     <button
      class="light"
      onclick="
-     loadHistory(${i})
+      loadHistory(${i})
      "
     >
     Abrir
@@ -1911,7 +2118,7 @@ function renderHistory(){
     <button
      class="red"
      onclick="
-     deleteHistory(${i})
+      deleteHistory(${i})
      "
     >
     Eliminar
@@ -1932,9 +2139,9 @@ function renderHistory(){
 
 
 
-/* =========================
+/* =====================================================
    ABRIR HISTORIAL
-   ========================= */
+   ===================================================== */
 
 function loadHistory(i){
 
@@ -1974,9 +2181,9 @@ function loadHistory(i){
 
 
 
-/* =========================
+/* =====================================================
    BORRAR HISTORIAL
-   ========================= */
+   ===================================================== */
 
 function deleteHistory(i){
 
@@ -2006,9 +2213,9 @@ function deleteHistory(i){
 
 
 
-/* =========================
+/* =====================================================
    GUARDAR OBRA
-   ========================= */
+   ===================================================== */
 
 function addSavedSite(){
 
@@ -2022,7 +2229,15 @@ function addSavedSite(){
   el.value.trim();
 
 
- if(!v)return;
+ if(!v){
+
+  toast(
+   "Escribe una obra"
+  );
+
+  return;
+
+ }
 
 
  const a=
@@ -2048,6 +2263,11 @@ function addSavedSite(){
  saveSites(a);
 
 
+ /*
+    La obra guardada también queda
+    disponible para memoria.
+ */
+
  el.value="";
 
 
@@ -2055,13 +2275,17 @@ function addSavedSite(){
 
  render();
 
+ toast(
+  "Obra guardada"
+ );
+
 }
 
 
 
-/* =========================
-   ELIMINAR OBRA GUARDADA
-   ========================= */
+/* =====================================================
+   ELIMINAR OBRA
+   ===================================================== */
 
 function removeSavedSite(i){
 
@@ -2085,9 +2309,9 @@ function removeSavedSite(i){
 
 
 
-/* =========================
-   MOSTRAR OBRAS GUARDADAS
-   ========================= */
+/* =====================================================
+   MOSTRAR OBRAS
+   ===================================================== */
 
 function renderSavedSites(){
 
@@ -2121,7 +2345,7 @@ function renderSavedSites(){
     class="red"
     style="margin-top:8px"
     onclick="
-    removeSavedSite(${i})
+     removeSavedSite(${i})
     "
    >
    Eliminar
@@ -2140,9 +2364,9 @@ function renderSavedSites(){
 
 
 
-/* ==================================================
-   GENERADOR DEL PDF PROFESIONAL
-   ================================================== */
+/* =====================================================
+   GENERADOR PDF
+   ===================================================== */
 
 function buildPrint(){
 
@@ -2151,35 +2375,22 @@ function buildPrint(){
   .map(
    d=>{
 
-    /*
-     Si el día no está marcado,
-     el PDF muestra 0 horas.
-    */
-
     const dayTotal=
-     d.worked
-     ?
      d.lines.reduce(
       (a,l)=>
        a+
        (parseFloat(l.hours)||0),
       0
-     )
-     :
-     0;
+     );
 
 
     const works=
-     d.worked
-     ?
      d.lines.filter(
       l=>
        l.site ||
        l.hours ||
        l.note
-     )
-     :
-     [];
+     );
 
 
     const obra=
@@ -2297,9 +2508,9 @@ function buildPrint(){
 
 
 
-/* =========================
-   IMPRIMIR / PDF
-   ========================= */
+/* =====================================================
+   IMPRIMIR
+   ===================================================== */
 
 function printPart(){
 
@@ -2331,6 +2542,13 @@ function printPart(){
   week.start;
 
 
+ /*
+    Guardamos la memoria antes de imprimir.
+ */
+
+ rememberSitesFromWeek();
+
+
  buildPrint();
 
 
@@ -2338,16 +2556,16 @@ function printPart(){
   ()=>{
    window.print();
   },
-  100
+  150
  );
 
 }
 
 
 
-/* =========================
-   MENSAJE
-   ========================= */
+/* =====================================================
+   TOAST
+   ===================================================== */
 
 function toast(msg){
 
@@ -2384,9 +2602,9 @@ function toast(msg){
 
 
 
-/* =========================
+/* =====================================================
    NOMBRE
-   ========================= */
+   ===================================================== */
 
 document
 .getElementById("name")
@@ -2411,9 +2629,9 @@ document
 
 
 
-/* =========================
+/* =====================================================
    INICIO
-   ========================= */
+   ===================================================== */
 
 document
 .getElementById(
@@ -2436,6 +2654,66 @@ const current=
 if(current){
 
  week=current;
+
+ /*
+    Compatibilidad con versiones anteriores.
+    Si alguna semana antigua no tenía
+    algún dato, lo completamos.
+ */
+
+ if(!week.days){
+
+  week.days=
+   blankDays(
+    week.start ||
+    mondayOf(todayISO())
+   );
+
+ }
+
+ week.days=
+  week.days.map(
+   (d,i)=>({
+
+    name:
+     d.name ||
+     DAYS[i],
+
+    date:
+     d.date ||
+     addDays(
+      week.start,
+      i
+     ),
+
+    worked:
+     typeof d.worked==="boolean"
+     ? d.worked
+     : i<5,
+
+    note:
+     d.note || "",
+
+    lines:
+     Array.isArray(d.lines) &&
+     d.lines.length
+
+     ?
+
+     d.lines
+
+     :
+
+     [{
+      hours:i<5?"8":"",
+      site:
+       rememberedSite(i),
+      note:""
+     }]
+
+   })
+  );
+
 
  render();
 
@@ -2463,6 +2741,7 @@ if(current){
  render();
 
 }
+
 
 </script>
 
