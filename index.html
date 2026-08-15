@@ -414,6 +414,7 @@ button{
  .hero h1{
   font-size:31px;
  }
+
 }
 
 </style>
@@ -881,6 +882,16 @@ function esc(s){
    SEMANA VACÍA
    ========================= */
 
+/*
+   LUNES A VIERNES:
+   - Trabajados por defecto
+   - 8 horas por defecto
+
+   SÁBADO Y DOMINGO:
+   - No trabajados
+   - Sin horas
+*/
+
 function blankDays(start){
 
  return DAYS.map(
@@ -893,13 +904,13 @@ function blankDays(start){
     i
    ),
 
-   worked:false,
+   worked:i < 5,
 
    note:"",
 
    lines:[
     {
-     hours:"",
+     hours:i < 5 ? "8" : "",
      site:"",
      note:""
     }
@@ -973,6 +984,7 @@ function createWeek(){
 
   week={
    start:start,
+
    name:
     document
     .getElementById("name")
@@ -1045,7 +1057,7 @@ function newBlankWeek(){
  render();
 
  toast(
-  "Nueva semana en blanco"
+  "Nueva semana preparada: 40 h"
  );
 
 }
@@ -1093,7 +1105,7 @@ function hourOptions(v){
 function siteOptions(v){
 
  const sites=
- savedSites();
+  savedSites();
 
 
  return `
@@ -1143,12 +1155,16 @@ function siteOptions(v){
 function dayHTML(d,di){
 
  const total=
- d.lines.reduce(
-  (a,l)=>
-   a+
-   (parseFloat(l.hours)||0),
-  0
- );
+  d.worked
+  ?
+  d.lines.reduce(
+   (a,l)=>
+    a+
+    (parseFloat(l.hours)||0),
+   0
+  )
+  :
+  0;
 
 
  return `
@@ -1403,7 +1419,52 @@ function toggleWorked(
 
  week.days[di].worked=v;
 
- updateTotals();
+
+ if(v){
+
+  /*
+   Si vuelves a marcar un día
+   y está vacío, recupera las
+   8 horas por defecto.
+  */
+
+  if(
+   !week.days[di].lines.length
+  ){
+
+   week.days[di].lines=[
+    {
+     hours:"8",
+     site:"",
+     note:""
+    }
+   ];
+
+  }else if(
+   !week.days[di].lines[0].hours
+  ){
+
+   week.days[di].lines[0].hours="8";
+
+  }
+
+ }else{
+
+  /*
+   Al desmarcar el día,
+   las horas dejan de contar.
+  */
+
+  week.days[di].lines.forEach(
+   l=>{
+    l.hours="";
+   }
+  );
+
+ }
+
+
+ render();
 
 }
 
@@ -1515,14 +1576,26 @@ function removeLine(
 function totalHours(){
 
  return week.days.reduce(
-  (sum,d)=>
-   sum+
-   d.lines.reduce(
-    (a,l)=>
-     a+
-     (parseFloat(l.hours)||0),
-    0
-   ),
+  (sum,d)=>{
+
+   /*
+    Solo cuentan las horas
+    de los días marcados.
+   */
+
+   if(!d.worked){
+    return sum;
+   }
+
+   return sum+
+    d.lines.reduce(
+     (a,l)=>
+      a+
+      (parseFloat(l.hours)||0),
+     0
+    );
+
+  },
   0
  );
 
@@ -1581,15 +1654,21 @@ function updateTotals(){
  .forEach(
   (el,i)=>{
 
+   const d=
+    week.days[i];
+
+
    const t=
-    week.days[i]
-    .lines
-    .reduce(
+    d.worked
+    ?
+    d.lines.reduce(
      (a,l)=>
       a+
       (parseFloat(l.hours)||0),
      0
-    );
+    )
+    :
+    0;
 
 
    const x=
@@ -1795,10 +1874,16 @@ function renderHistory(){
      x.days.reduce(
       (a,d)=>
        a+
-       d.lines.reduce(
-        (b,l)=>
-         b+
-         (parseFloat(l.hours)||0),
+       (
+        d.worked
+        ?
+        d.lines.reduce(
+         (b,l)=>
+          b+
+          (parseFloat(l.hours)||0),
+         0
+        )
+        :
         0
        ),
       0
@@ -2066,22 +2151,35 @@ function buildPrint(){
   .map(
    d=>{
 
+    /*
+     Si el día no está marcado,
+     el PDF muestra 0 horas.
+    */
+
     const dayTotal=
+     d.worked
+     ?
      d.lines.reduce(
       (a,l)=>
        a+
        (parseFloat(l.hours)||0),
       0
-     );
+     )
+     :
+     0;
 
 
     const works=
+     d.worked
+     ?
      d.lines.filter(
       l=>
        l.site ||
        l.hours ||
        l.note
-     );
+     )
+     :
+     [];
 
 
     const obra=
