@@ -1864,16 +1864,82 @@ function buildPrint(){
 }
 
 
-function printPart(){
+function buildPrint(){
 
- savePart();
+ const printDays=document.getElementById("printDays");
+ const printTotal=document.getElementById("pTotal");
 
- buildPrint();
+ if(!printDays || !printTotal){
+  return;
+ }
 
- setTimeout(
-  ()=>window.print(),
-  100
- );
+ let total=0;
+ let rows="";
+
+ week.days.forEach(d=>{
+
+  const dayTotal=d.lines.reduce(
+   (sum,l)=>sum+(parseFloat(l.hours)||0),
+   0
+  );
+
+  total+=dayTotal;
+
+  const validLines=d.lines.filter(
+   l=>l.hours || l.site || l.note
+  );
+
+  let horas="";
+  let obras="";
+  let notas="";
+
+  validLines.forEach(l=>{
+
+   if(l.hours){
+    horas+=`${fmtNum(parseFloat(l.hours))}<br>`;
+   }
+
+   if(l.site){
+    obras+=`${esc(l.site)}<br>`;
+   }
+
+   if(l.note){
+    notas+=`${esc(l.note)}<br>`;
+   }
+
+  });
+
+  if(d.note){
+   notas+=`${esc(d.note)}<br>`;
+  }
+
+  rows+=`
+   <tr>
+    <td>
+     <strong>${esc(d.name)}</strong><br>
+     <span>${fmt(d.date)}</span>
+    </td>
+
+    <td class="p-hours">
+     ${horas}
+    </td>
+
+    <td>
+     ${obras}
+    </td>
+
+    <td>
+     ${notas}
+    </td>
+   </tr>
+  `;
+
+ });
+
+ printDays.innerHTML=rows;
+
+ printTotal.textContent=
+  fmtNum(total)+" horas";
 
 }
 
