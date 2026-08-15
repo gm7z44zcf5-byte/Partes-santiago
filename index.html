@@ -8,12 +8,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Parte de horas">
 
-<title>Parte de horas semanales</title>
-
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4">
-<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png?v=4">
-<link rel="apple-touch-icon" href="icon-192.png?v=4">
 <link rel="manifest" href="manifest.json">
+
+<title>Parte de horas semanales</title>
 
 <style>
 *{box-sizing:border-box}
@@ -22,7 +19,6 @@
  --blue:#2563eb;
  --green:#16803d;
  --red:#dc2626;
- --orange:#f59e0b;
  --bg:#f2f3f7;
  --text:#111827;
  --muted:#6b7280;
@@ -58,7 +54,7 @@ body{
  font-size:34px;
  line-height:1.1;
  margin:0 0 8px;
- font-weight:900;
+ font-weight:850;
 }
 
 .sub{
@@ -74,7 +70,9 @@ label{
  margin:15px 0 7px;
 }
 
-input,select,textarea{
+input,
+select,
+textarea{
  width:100%;
  border:2px solid #ddd;
  border-radius:16px;
@@ -83,7 +81,9 @@ input,select,textarea{
  background:#fff;
 }
 
-input:focus,select:focus,textarea:focus{
+input:focus,
+select:focus,
+textarea:focus{
  outline:3px solid #2563eb22;
  border-color:var(--blue);
 }
@@ -103,12 +103,11 @@ button{
  color:#fff;
 }
 
-.blue{background:var(--blue);color:#fff}
-.green{background:var(--green);color:#fff}
-.black{background:#111;color:#fff}
+.blue{background:var(--blue)}
+.green{background:var(--green)}
+.black{background:#111}
 .light{background:#eef0f4;color:#111}
 .red{background:#fee2e2;color:#991b1b}
-.orange{background:#fef3c7;color:#92400e}
 
 .grid2{
  display:grid;
@@ -129,31 +128,13 @@ button{
  font-size:26px;
 }
 
-.total{
+.total,
+.day-total{
  background:#eef0f4;
  border-radius:999px;
  padding:10px 16px;
- font-weight:900;
+ font-weight:850;
  white-space:nowrap;
-}
-
-.status{
- border-radius:18px;
- padding:15px;
- margin-bottom:18px;
- font-weight:800;
-}
-
-.status.pending{
- background:#fff7ed;
- color:#9a3412;
- border:1px solid #fed7aa;
-}
-
-.status.sent{
- background:#ecfdf5;
- color:#166534;
- border:1px solid #bbf7d0;
 }
 
 .day{
@@ -181,13 +162,6 @@ button{
  color:var(--muted);
  font-size:14px;
  margin-top:3px;
-}
-
-.day-total{
- background:#f0f0f0;
- border-radius:999px;
- padding:9px 14px;
- font-weight:900;
 }
 
 .day-actions{
@@ -227,12 +201,8 @@ button{
  align-items:center;
 }
 
+.linegrid input,
 .linegrid select{
- padding:12px;
- border-radius:13px;
-}
-
-.linegrid input{
  padding:12px;
  border-radius:13px;
 }
@@ -265,7 +235,6 @@ button{
 .summaryrow{
  display:flex;
  justify-content:space-between;
- gap:15px;
  padding:9px 0;
  border-bottom:1px solid #333;
 }
@@ -307,79 +276,14 @@ button{
  font-weight:700;
  z-index:99;
  box-shadow:0 5px 20px #0005;
- max-width:90%;
- text-align:center;
 }
 
-.obra-row{
- display:flex;
- gap:8px;
- margin-top:10px;
-}
-
-.obra-row input{
- flex:1;
-}
-
-.obra-list{
- margin-top:12px;
- display:flex;
- flex-wrap:wrap;
- gap:8px;
-}
-
-.obra-chip{
- background:#eef0f4;
- border-radius:999px;
- padding:9px 13px;
- font-weight:800;
- display:flex;
- align-items:center;
- gap:8px;
-}
-
-.obra-chip button{
- padding:0;
- background:none;
- color:#b42318;
- font-size:18px;
-}
-
-.send-box{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:10px;
- margin-top:12px;
-}
-
-.reminder{
- background:#eff6ff;
- border:1px solid #bfdbfe;
- color:#1e40af;
-}
-
-@media(max-width:600px){
-
- .grid2,
- .send-box{
-  grid-template-columns:1fr;
- }
-
- .linegrid{
-  grid-template-columns:90px 1fr 43px;
- }
-
- .hero h1{
-  font-size:31px;
- }
-
-}
 
 /* =========================
-   PDF / IMPRESIÓN
+   HOJA PROFESIONAL DEL PDF
    ========================= */
 
-#printSheet{
+.print-sheet{
  display:none;
 }
 
@@ -390,117 +294,97 @@ button{
 
 @media print{
 
- html,body{
+ html,
+ body{
   width:210mm;
   height:297mm;
-  margin:0!important;
-  padding:0!important;
   background:#fff!important;
  }
 
- body{
-  -webkit-print-color-adjust:exact;
-  print-color-adjust:exact;
- }
-
- .wrap,
- .toast{
+ body > *:not(.print-sheet){
   display:none!important;
  }
 
- #printSheet{
+ .print-sheet{
   display:block!important;
   width:210mm;
   height:297mm;
-  padding:18mm 17mm 15mm;
+  padding:24mm 18mm 18mm;
   background:#fff;
   color:#111;
   font-family:Arial,Helvetica,sans-serif;
-  position:relative;
+  overflow:hidden;
  }
 
- .print-title{
+ .print-header{
   text-align:center;
-  margin-bottom:7mm;
+  margin-bottom:8mm;
  }
 
- .print-title h1{
-  margin:0 0 5mm;
-  font-size:20pt;
-  font-weight:900;
+ .print-header h1{
+  font-size:19pt;
+  margin:0 0 3mm;
+  font-weight:800;
  }
 
- .print-info{
-  width:100%;
-  border-collapse:collapse;
-  table-layout:fixed;
+ .print-meta{
+  font-size:9.5pt;
   margin-bottom:5mm;
- }
-
- .print-info td{
-  border:1.2px solid #333;
-  height:11mm;
-  padding:2mm 2.5mm;
-  font-size:10pt;
- }
-
- .print-info .label{
-  font-weight:900;
-  background:#eee;
  }
 
  .print-table{
   width:100%;
   border-collapse:collapse;
   table-layout:fixed;
+  font-size:9.5pt;
  }
 
  .print-table th,
  .print-table td{
-  border:1.2px solid #333;
- }
-
- .print-table th{
-  background:#eee;
-  text-align:center;
-  font-size:9.5pt;
-  font-weight:900;
-  padding:3mm 2mm;
- }
-
- .print-table td{
-  font-size:9.5pt;
-  padding:2mm 2.5mm;
-  height:14mm;
+  border:1.2px solid #222;
+  padding:2.8mm 2.5mm;
   vertical-align:middle;
  }
 
- .day-col{width:22%}
- .hours-col{width:11%;text-align:center}
- .work-col{width:31%}
- .obs-col{width:36%}
-
- .day-name{
-  display:block;
-  font-weight:900;
+ .print-table th{
+  background:#f1f1f1;
+  font-weight:800;
+  text-align:center;
  }
 
- .day-date{
+ .print-table .daycol{
+  width:19%;
+ }
+
+ .print-table .hourscol{
+  width:12%;
+ }
+
+ .print-table .workcol{
+  width:30%;
+ }
+
+ .print-table .notecol{
+  width:39%;
+ }
+
+ .print-table td.hours{
+  text-align:center;
+ }
+
+ .print-table td.day{
+  font-weight:700;
+ }
+
+ .print-table td.day small{
   display:block;
-  font-size:8pt;
+  font-weight:700;
+  font-size:8.2pt;
   margin-top:1mm;
  }
 
- .print-total{
-  width:100%;
-  border-collapse:collapse;
- }
-
  .print-total td{
-  border:1.2px solid #333;
-  font-size:10pt;
-  font-weight:900;
-  padding:3mm 2.5mm;
+  font-weight:800;
  }
 
  .print-total td:last-child{
@@ -508,33 +392,57 @@ button{
  }
 
  .print-footer{
-  position:absolute;
-  left:17mm;
-  right:17mm;
-  bottom:10mm;
+  margin-top:7mm;
   display:flex;
   justify-content:space-between;
   font-size:7.5pt;
   color:#777;
  }
-
 }
+
+
+@media(max-width:600px){
+
+ .grid2{
+  grid-template-columns:1fr;
+ }
+
+ .linegrid{
+  grid-template-columns:100px 1fr 43px;
+ }
+
+ .hero h1{
+  font-size:31px;
+ }
+}
+
 </style>
 </head>
+
 
 <body>
 
 <div class="wrap">
 
-<section class="card hero">
 
-<h1>📋 Parte de horas semanales</h1>
+<!-- =========================
+     PARTE PRINCIPAL
+     ========================= -->
+
+<section class="card hero no-print">
+
+<h1>
+📋 Parte de horas semanales
+</h1>
 
 <div class="sub">
 Control semanal de horas y obras
 </div>
 
-<label>Nombre y apellido</label>
+
+<label for="name">
+Nombre y apellido
+</label>
 
 <input
  id="name"
@@ -542,91 +450,61 @@ Control semanal de horas y obras
  placeholder="Pon tu nombre y apellido"
 >
 
-<label>Semana comienza</label>
+
+<label for="weekStart">
+Semana comienza
+</label>
 
 <input
  id="weekStart"
  type="date"
 >
 
+
 <div class="grid2">
 
-<button class="btn blue" onclick="createWeek()">
+<button
+ class="btn blue"
+ onclick="createWeek()"
+>
 Crear / actualizar semana
 </button>
 
-<button class="btn green" onclick="savePart()">
+
+<button
+ class="btn green"
+ onclick="savePart()"
+>
 💾 Guardar parte
 </button>
 
 </div>
 
-<button class="btn black" onclick="printPart()">
+
+<button
+ class="btn black"
+ onclick="printPart()"
+>
 🖨️ Imprimir / PDF
 </button>
 
-<button class="btn light" onclick="newBlankWeek()">
+
+<button
+ class="btn light"
+ onclick="newBlankWeek()"
+>
 ➕ Nueva semana en blanco
 </button>
 
 </section>
 
 
-<!-- OBRAS GUARDADAS -->
+
+<!-- =========================
+     SEMANA
+     ========================= -->
 
 <section class="card">
-
-<h2>🏗️ Mis obras</h2>
-
-<div class="small">
-Guarda tus obras para seleccionarlas rápidamente en cada parte.
-</div>
-
-<div class="obra-row">
-
-<input
- id="newObra"
- type="text"
- placeholder="Ej. 10043 - Valencia"
->
-
-<button class="blue" onclick="addObra()">
-＋ Añadir
-</button>
-
-</div>
-
-<div id="obraList" class="obra-list"></div>
-
-</section>
-
-
-<!-- RECORDATORIO -->
-
-<section class="card reminder">
-
-<h2>🔔 Avisos del parte</h2>
-
-<div class="small" style="color:#1e40af">
-Viernes y lunes: recordar enviar el parte.
-Después de terminar la semana: recordatorio diario mientras esté pendiente.
-</div>
-
-<button
- class="btn blue"
- onclick="enableNotifications()"
->
-🔔 Activar avisos
-</button>
-
-</section>
-
-
-<section class="card">
-
-<div id="statusBox" class="status pending">
-⚠️ Parte pendiente de enviar
-</div>
 
 <div class="week-head">
 
@@ -642,26 +520,13 @@ Horas de la semana
 
 <div id="days"></div>
 
-<div class="send-box">
-
-<button
- class="green"
- onclick="markSent()"
->
-✅ MARCAR COMO ENVIADO
-</button>
-
-<button
- class="orange"
- onclick="markPending()"
->
-↩️ MARCAR PENDIENTE
-</button>
-
-</div>
-
 </section>
 
+
+
+<!-- =========================
+     RESUMEN
+     ========================= -->
 
 <section class="card summary">
 
@@ -676,25 +541,73 @@ Resumen
 
 <div class="summaryrow">
 <span>Total semanal</span>
-<b><span id="sumHours">0</span> h</b>
+<b>
+<span id="sumHours">0</span> h
+</b>
 </div>
 
 <div class="summaryrow">
 <span>Días trabajados</span>
-<b><span id="sumDays">0</span> / 7</b>
+<b>
+<span id="sumDays">0</span> / 7
+</b>
 </div>
 
 </section>
 
 
-<section class="card">
+
+<!-- =========================
+     OBRAS GUARDADAS
+     ========================= -->
+
+<section class="card no-print">
+
+<h2>
+Obras guardadas
+</h2>
+
+<div class="small">
+Guarda tus obras habituales y después selecciónalas sin escribirlas.
+</div>
+
+
+<div class="grid2">
+
+<input
+ id="newSite"
+ placeholder="Ej. Obra 10043"
+>
+
+
+<button
+ class="light"
+ onclick="addSavedSite()"
+>
+＋ Guardar obra
+</button>
+
+</div>
+
+
+<div id="savedSites"></div>
+
+</section>
+
+
+
+<!-- =========================
+     PARTES GUARDADOS
+     ========================= -->
+
+<section class="card no-print">
 
 <h2>
 Partes guardados
 </h2>
 
 <div class="small">
-Tus semanas quedan guardadas en este dispositivo.
+Se guardan en este dispositivo.
 </div>
 
 <div id="history"></div>
@@ -704,34 +617,40 @@ Tus semanas quedan guardadas en este dispositivo.
 </div>
 
 
-<!-- DOCUMENTO PDF -->
 
-<div id="printSheet">
+<div
+ id="toast"
+ class="toast hidden"
+></div>
 
-<div class="print-title">
+
+
+<!-- ==================================================
+     HOJA QUE SE UTILIZA SOLAMENTE PARA EL PDF
+     ================================================== -->
+
+<section class="print-sheet">
+
+<div class="print-header">
 
 <h1>
 PARTE DE HORAS SEMANALES
 </h1>
 
+<div class="print-meta">
+
+<b>Nombre:</b>
+<span id="pName"></span>
+
+&nbsp;&nbsp;&nbsp;
+
+<b>Semana:</b>
+<span id="pDates"></span>
+
 </div>
 
-<table class="print-info">
+</div>
 
-<tr>
-
-<td class="label">Nombre</td>
-<td id="pName"></td>
-
-<td class="label">Mes</td>
-<td id="pMonth"></td>
-
-<td class="label">Año</td>
-<td id="pYear"></td>
-
-</tr>
-
-</table>
 
 
 <table class="print-table">
@@ -740,25 +659,38 @@ PARTE DE HORAS SEMANALES
 
 <tr>
 
-<th class="day-col">Día</th>
-<th class="hours-col">Horas</th>
-<th class="work-col">Obra</th>
-<th class="obs-col">Observaciones</th>
+<th class="daycol">
+Día
+</th>
+
+<th class="hourscol">
+Horas
+</th>
+
+<th class="workcol">
+Obra
+</th>
+
+<th class="notecol">
+Observaciones
+</th>
 
 </tr>
 
 </thead>
 
-<tbody id="printDays"></tbody>
 
-</table>
+<tbody id="pDays">
+</tbody>
 
 
-<table class="print-total">
+<tfoot>
 
-<tr>
+<tr class="print-total">
 
-<td>TOTAL HORAS</td>
+<td colspan="3">
+TOTAL HORAS
+</td>
 
 <td>
 <span id="pTotal">0</span> horas
@@ -766,7 +698,10 @@ PARTE DE HORAS SEMANALES
 
 </tr>
 
+</tfoot>
+
 </table>
+
 
 
 <div class="print-footer">
@@ -775,19 +710,20 @@ PARTE DE HORAS SEMANALES
 Parte de horas semanales
 </span>
 
-<span>
-Página 1 de 1
-</span>
+<span id="pFooter"></span>
 
 </div>
 
-</div>
+</section>
 
-
-<div id="toast" class="toast hidden"></div>
 
 
 <script>
+
+
+/* =========================
+   DATOS
+   ========================= */
 
 const DAYS=[
  "Lunes",
@@ -799,12 +735,42 @@ const DAYS=[
  "Domingo"
 ];
 
+
+const HOURS=[
+ 0,
+ 0.5,
+ 1,
+ 1.5,
+ 2,
+ 2.5,
+ 3,
+ 3.5,
+ 4,
+ 4.5,
+ 5,
+ 5.5,
+ 6,
+ 6.5,
+ 7,
+ 7.5,
+ 8,
+ 8.5,
+ 9,
+ 9.5,
+ 10,
+ 10.5,
+ 11,
+ 11.5,
+ 12
+];
+
+
 let week={
  start:"",
  name:"",
- sent:false,
  days:[]
 };
+
 
 
 /* =========================
@@ -820,35 +786,53 @@ function todayISO(){
 }
 
 
+
 function mondayOf(dateStr){
 
- const d=new Date(dateStr+"T12:00:00");
+ const d=
+ new Date(dateStr+"T12:00:00");
 
  const day=d.getDay();
 
- const diff=day===0?-6:1-day;
+ const diff=
+ day===0
+ ? -6
+ : 1-day;
 
- d.setDate(d.getDate()+diff);
+ d.setDate(
+  d.getDate()+diff
+ );
 
- return d.toISOString().slice(0,10);
+ return d
+ .toISOString()
+ .slice(0,10);
 
 }
+
 
 
 function addDays(dateStr,n){
 
- const d=new Date(dateStr+"T12:00:00");
+ const d=
+ new Date(dateStr+"T12:00:00");
 
- d.setDate(d.getDate()+n);
+ d.setDate(
+  d.getDate()+n
+ );
 
- return d.toISOString().slice(0,10);
+ return d
+ .toISOString()
+ .slice(0,10);
 
 }
 
 
+
 function fmt(dateStr){
 
- return new Date(dateStr+"T12:00:00")
+ return new Date(
+  dateStr+"T12:00:00"
+ )
  .toLocaleDateString(
   "es-ES",
   {
@@ -861,15 +845,18 @@ function fmt(dateStr){
 }
 
 
+
 function fmtNum(n){
 
  return Number.isInteger(n)
  ? String(n)
- : n.toFixed(2)
- .replace(/0+$/,"")
- .replace(/\.$/,"");
+ : n
+   .toFixed(2)
+   .replace(/0+$/,"")
+   .replace(/\.$/,"");
 
 }
+
 
 
 function esc(s){
@@ -889,329 +876,280 @@ function esc(s){
 }
 
 
-/* =========================
-   OBRAS
-   ========================= */
-
-function getObras(){
-
- return JSON.parse(
-  localStorage.getItem("parte_obras") ||
-  "[]"
- );
-
-}
-
-
-function saveObras(obras){
-
- localStorage.setItem(
-  "parte_obras",
-  JSON.stringify(obras)
- );
-
-}
-
-
-function addObra(){
-
- const input=
- document.getElementById("newObra");
-
- const obra=
- input.value.trim();
-
- if(!obra)return;
-
- const obras=getObras();
-
- if(!obras.includes(obra)){
-
-  obras.push(obra);
-
-  obras.sort(
-   (a,b)=>a.localeCompare(b,"es")
-  );
-
-  saveObras(obras);
-
- }
-
- input.value="";
-
- renderObras();
-
- toast("Obra guardada");
-
-}
-
-
-function deleteObra(i){
-
- const obras=getObras();
-
- obras.splice(i,1);
-
- saveObras(obras);
-
- renderObras();
-
-}
-
-
-function renderObras(){
-
- const obras=getObras();
-
- const box=
- document.getElementById("obraList");
-
- if(!obras.length){
-
-  box.innerHTML=
-  "<span class='small'>Todavía no tienes obras guardadas.</span>";
-
-  return;
-
- }
-
- box.innerHTML=
- obras.map(
-  (obra,i)=>`
-
-   <div class="obra-chip">
-
-    ${esc(obra)}
-
-    <button
-     onclick="deleteObra(${i})"
-     title="Eliminar"
-    >
-     ×
-    </button>
-
-   </div>
-
-  `
- ).join("");
-
-}
-
 
 /* =========================
-   HORAS
-   ========================= */
-
-function hourOptions(selected){
-
- let html=
- `<option value="">Horas</option>`;
-
- for(let i=0;i<=48;i++){
-
-  const value=i/4;
-
-  const text=fmtNum(value);
-
-  html+=`
-   <option
-    value="${value}"
-    ${String(selected)===String(value)?"selected":""}
-   >
-    ${text} h
-   </option>
-  `;
-
- }
-
- html+=`
-  <option value="custom">
-   Otra...
-  </option>
- `;
-
- return html;
-
-}
-
-
-function setHours(di,li,value){
-
- if(value==="custom"){
-
-  const old=
-   week.days[di].lines[li].hours || "";
-
-  const answer=
-   prompt(
-    "Introduce las horas:",
-    old
-   );
-
-  if(answer!==null){
-
-   const number=
-    parseFloat(
-     answer.replace(",",".")
-    );
-
-   if(!isNaN(number) && number>=0 && number<=24){
-
-    week.days[di].lines[li].hours=number;
-
-   }
-
-  }
-
- }else{
-
-  week.days[di].lines[li].hours=value;
-
- }
-
- render();
-
-}
-
-
-/* =========================
-   SEMANA
+   SEMANA VACÍA
    ========================= */
 
 function blankDays(start){
 
- return DAYS.map((name,i)=>({
+ return DAYS.map(
+  (name,i)=>({
 
-  name:name,
+   name:name,
 
-  date:addDays(start,i),
+   date:addDays(
+    start,
+    i
+   ),
 
-  worked:false,
+   worked:false,
 
-  note:"",
+   note:"",
 
-  lines:[
-   {
-    hours:"",
-    site:"",
-    note:""
-   }
-  ]
+   lines:[
+    {
+     hours:"",
+     site:"",
+     note:""
+    }
+   ]
 
- }));
+  })
+ );
 
 }
 
+
+
+/* =========================
+   OBRAS GUARDADAS
+   ========================= */
+
+function savedSites(){
+
+ return JSON.parse(
+  localStorage.getItem(
+   "parte_sites"
+  ) || "[]"
+ );
+
+}
+
+
+
+function saveSites(a){
+
+ localStorage.setItem(
+  "parte_sites",
+  JSON.stringify(a)
+ );
+
+}
+
+
+
+/* =========================
+   CREAR SEMANA
+   ========================= */
 
 function createWeek(){
 
  const start=
  mondayOf(
-  document.getElementById("weekStart").value ||
+  document.getElementById(
+   "weekStart"
+  ).value ||
   todayISO()
  );
 
- document.getElementById("weekStart").value=start;
 
  const old=
  JSON.parse(
-  localStorage.getItem("parte_current") ||
-  "null"
+  localStorage.getItem(
+   "parte_current"
+  ) || "null"
  );
 
- if(old && old.start===start){
+
+ if(
+  old &&
+  old.start===start
+ ){
 
   week=old;
-
-  if(!week.days?.length){
-   week.days=blankDays(start);
-  }
 
  }else{
 
   week={
    start:start,
    name:
-    document.getElementById("name").value.trim(),
-   sent:false,
-   days:blankDays(start)
+    document
+    .getElementById("name")
+    .value
+    .trim(),
+
+   days:
+    blankDays(start)
   };
 
  }
 
+
  week.name=
- document.getElementById("name").value.trim();
+ document
+ .getElementById("name")
+ .value
+ .trim();
+
+
+ document
+ .getElementById("weekStart")
+ .value=start;
+
 
  render();
 
- toast("Semana preparada");
+ toast(
+  "Semana preparada"
+ );
 
 }
 
+
+
+/* =========================
+   NUEVA SEMANA
+   ========================= */
 
 function newBlankWeek(){
 
  const start=
  mondayOf(
-  document.getElementById("weekStart").value ||
+  document.getElementById(
+   "weekStart"
+  ).value ||
   todayISO()
  );
 
+
  week={
   start:start,
+
   name:
-   document.getElementById("name").value.trim(),
-  sent:false,
-  days:blankDays(start)
+   document
+   .getElementById("name")
+   .value
+   .trim(),
+
+  days:
+   blankDays(start)
  };
 
- document.getElementById("weekStart").value=start;
+
+ document
+ .getElementById("weekStart")
+ .value=start;
+
 
  render();
 
- toast("Nueva semana en blanco");
+ toast(
+  "Nueva semana en blanco"
+ );
 
 }
+
 
 
 /* =========================
-   RENDER
+   SELECTOR DE HORAS
    ========================= */
 
-function render(){
+function hourOptions(v){
 
- document.getElementById("name").value=
- week.name ||
- localStorage.getItem("parte_profile_name") ||
- "";
+ return `
+ <option value="">
+ Horas
+ </option>
 
- document.getElementById("weekStart").value=
- week.start ||
- mondayOf(todayISO());
+ ${
+  HOURS.map(
+   h=>`
+   <option
+    value="${h}"
+    ${
+     String(v)===String(h)
+     ? "selected"
+     : ""
+    }
+   >
+   ${fmtNum(h)}
+   </option>
+   `
+  ).join("")
+ }
 
- document.getElementById("days").innerHTML=
- week.days.map(
-  (d,di)=>dayHTML(d,di)
- ).join("");
-
- updateTotals();
-
- renderHistory();
-
- renderStatus();
-
- renderObras();
+ `;
 
 }
 
+
+
+/* =========================
+   SELECTOR DE OBRAS
+   ========================= */
+
+function siteOptions(v){
+
+ const sites=
+ savedSites();
+
+
+ return `
+ <option value="">
+ Obra / lugar
+ </option>
+
+ ${
+  sites.map(
+   s=>`
+   <option
+    value="${esc(s)}"
+    ${
+     s===v
+     ? "selected"
+     : ""
+    }
+   >
+   ${esc(s)}
+   </option>
+   `
+  ).join("")
+ }
+
+
+ <option
+  value="__manual__"
+  ${
+   v &&
+   !sites.includes(v)
+   ? "selected"
+   : ""
+  }
+ >
+ ✏️ Escribir otra...
+ </option>
+ `;
+
+}
+
+
+
+/* =========================
+   HTML DE CADA DÍA
+   ========================= */
 
 function dayHTML(d,di){
 
  const total=
  d.lines.reduce(
-  (a,l)=>a+(parseFloat(l.hours)||0),
+  (a,l)=>
+   a+
+   (parseFloat(l.hours)||0),
   0
  );
+
 
  return `
 
@@ -1221,16 +1159,18 @@ function dayHTML(d,di){
 
    <div>
 
-    <h3>${d.name}</h3>
+    <h3>
+    ${d.name}
+    </h3>
 
     <div class="date">
-     ${fmt(d.date)}
+    ${fmt(d.date)}
     </div>
 
    </div>
 
    <div class="day-total">
-    ${fmtNum(total)} h
+   ${fmtNum(total)} h
    </div>
 
   </div>
@@ -1240,12 +1180,22 @@ function dayHTML(d,di){
 
    <input
     type="checkbox"
-    ${d.worked?"checked":""}
-    onchange="toggleWorked(${di},this.checked)"
+    ${
+     d.worked
+     ? "checked"
+     : ""
+    }
+
+    onchange="
+    toggleWorked(
+     ${di},
+     this.checked
+    )
+    "
    >
 
    <span>
-    Trabajé este día
+   Trabajé este día
    </span>
 
   </div>
@@ -1253,18 +1203,27 @@ function dayHTML(d,di){
 
   <div class="lines">
 
-   ${d.lines.map(
-    (l,li)=>lineHTML(d,di,l,li)
-   ).join("")}
+   ${
+    d.lines.map(
+     (l,li)=>
+      lineHTML(
+       di,
+       l,
+       li
+      )
+    ).join("")
+   }
 
   </div>
 
 
   <button
    class="addline"
-   onclick="addLine(${di})"
+   onclick="
+   addLine(${di})
+   "
   >
-   ＋ Añadir otra obra / línea
+  ＋ Añadir otra obra / línea
   </button>
 
 
@@ -1272,7 +1231,12 @@ function dayHTML(d,di){
    class="notes"
    rows="2"
    placeholder="Observación del día (opcional)"
-   onchange="dayNote(${di},this.value)"
+   onchange="
+   dayNote(
+    ${di},
+    this.value
+   )
+   "
   >${esc(d.note||"")}</textarea>
 
  </div>
@@ -1282,23 +1246,12 @@ function dayHTML(d,di){
 }
 
 
-function lineHTML(d,di,l,li){
 
- const obras=getObras();
+/* =========================
+   LÍNEA DE OBRA
+   ========================= */
 
- const options=
-  `<option value="">Seleccionar obra</option>`+
-  obras.map(
-   o=>`
-    <option
-     value="${esc(o)}"
-     ${l.site===o?"selected":""}
-    >
-     ${esc(o)}
-    </option>
-   `
-  ).join("")+
-  `<option value="__custom">✏️ Escribir otra obra</option>`;
+function lineHTML(di,l,li){
 
  return `
 
@@ -1306,28 +1259,63 @@ function lineHTML(d,di,l,li){
 
   <div class="linegrid">
 
+
    <select
-    onchange="changeSite(${di},${li},this.value)"
+    onchange="
+    setLine(
+     ${di},
+     ${li},
+     'hours',
+     this.value
+    )
+    "
    >
-    ${options}
+
+   ${
+    hourOptions(
+     l.hours
+    )
+   }
+
    </select>
 
 
+
    <select
-    onchange="setHours(${di},${li},this.value)"
+    onchange="
+    siteChanged(
+     ${di},
+     ${li},
+     this
+    )
+    "
    >
-    ${hourOptions(l.hours)}
+
+   ${
+    siteOptions(
+     l.site
+    )
+   }
+
    </select>
+
 
 
    <button
     class="remove"
-    onclick="removeLine(${di},${li})"
+    onclick="
+    removeLine(
+     ${di},
+     ${li}
+    )
+    "
    >
-    ✕
+   ✕
    </button>
 
+
   </div>
+
 
 
   <input
@@ -1335,7 +1323,15 @@ function lineHTML(d,di,l,li){
    type="text"
    placeholder="Observación de esta línea (opcional)"
    value="${esc(l.note)}"
-   onchange="setLine(${di},${li},'note',this.value)"
+
+   onchange="
+   setLine(
+    ${di},
+    ${li},
+    'note',
+    this.value
+   )
+   "
   >
 
  </div>
@@ -1345,53 +1341,65 @@ function lineHTML(d,di,l,li){
 }
 
 
-function changeSite(di,li,value){
 
- if(value==="__custom"){
+/* =========================
+   SELECCIONAR OBRA
+   ========================= */
 
-  const old=
-   week.days[di].lines[li].site || "";
+function siteChanged(
+ di,
+ li,
+ el
+){
 
-  const answer=
+ if(
+  el.value==="__manual__"
+ ){
+
+  const v=
    prompt(
-    "Escribe el nombre o número de la obra:",
-    old
+    "Escribe el nombre o código de la obra:"
    );
 
-  if(answer!==null){
 
-   const obra=answer.trim();
+  if(v){
 
-   week.days[di].lines[li].site=obra;
+   setLine(
+    di,
+    li,
+    "site",
+    v.trim()
+   );
 
-   if(obra){
+  }else{
 
-    const obras=getObras();
-
-    if(!obras.includes(obra)){
-
-     obras.push(obra);
-
-     saveObras(obras);
-
-    }
-
-   }
+   render();
 
   }
 
  }else{
 
-  week.days[di].lines[li].site=value;
+  setLine(
+   di,
+   li,
+   "site",
+   el.value
+  );
 
  }
-
- render();
 
 }
 
 
-function toggleWorked(di,v){
+
+/* =========================
+   CAMBIAR DÍA
+   ========================= */
+
+function toggleWorked(
+ di,
+ v
+){
 
  week.days[di].worked=v;
 
@@ -1400,28 +1408,58 @@ function toggleWorked(di,v){
 }
 
 
-function setLine(di,li,key,val){
 
- week.days[di].lines[li][key]=val;
+/* =========================
+   CAMBIAR LÍNEA
+   ========================= */
+
+function setLine(
+ di,
+ li,
+ key,
+ val
+){
+
+ week
+  .days[di]
+  .lines[li][key]=val;
 
  updateTotals();
 
 }
 
 
-function dayNote(di,val){
+
+/* =========================
+   NOTA DEL DÍA
+   ========================= */
+
+function dayNote(
+ di,
+ val
+){
 
  week.days[di].note=val;
 
 }
 
 
+
+/* =========================
+   AÑADIR OBRA
+   ========================= */
+
 function addLine(di){
 
- week.days[di].lines.push({
+ week
+ .days[di]
+ .lines
+ .push({
 
   hours:"",
+
   site:"",
+
   note:""
 
  });
@@ -1431,11 +1469,23 @@ function addLine(di){
 }
 
 
-function removeLine(di,li){
 
- if(week.days[di].lines.length===1){
+/* =========================
+   ELIMINAR OBRA
+   ========================= */
 
-  week.days[di].lines[0]={
+function removeLine(
+ di,
+ li
+){
+
+ if(
+  week.days[di]
+  .lines.length===1
+ ){
+
+  week.days[di]
+  .lines[0]={
    hours:"",
    site:"",
    note:""
@@ -1443,7 +1493,12 @@ function removeLine(di,li){
 
  }else{
 
-  week.days[di].lines.splice(li,1);
+  week.days[di]
+  .lines
+  .splice(
+   li,
+   1
+  );
 
  }
 
@@ -1452,8 +1507,9 @@ function removeLine(di,li){
 }
 
 
+
 /* =========================
-   TOTALES
+   TOTAL
    ========================= */
 
 function totalHours(){
@@ -1462,7 +1518,9 @@ function totalHours(){
   (sum,d)=>
    sum+
    d.lines.reduce(
-    (a,l)=>a+(parseFloat(l.hours)||0),
+    (a,l)=>
+     a+
+     (parseFloat(l.hours)||0),
     0
    ),
   0
@@ -1471,159 +1529,226 @@ function totalHours(){
 }
 
 
+
+/* =========================
+   ACTUALIZAR TOTALES
+   ========================= */
+
 function updateTotals(){
 
- const total=totalHours();
+ const total=
+  totalHours();
 
- document.getElementById("weekTotal")
- .textContent=fmtNum(total);
 
- document.getElementById("sumHours")
- .textContent=fmtNum(total);
+ document
+ .getElementById(
+  "weekTotal"
+ )
+ .textContent=
+ fmtNum(total);
 
- document.getElementById("sumName")
- .textContent=week.name||"—";
 
- document.getElementById("sumDays")
+ document
+ .getElementById(
+  "sumHours"
+ )
+ .textContent=
+ fmtNum(total);
+
+
+ document
+ .getElementById(
+  "sumName"
+ )
+ .textContent=
+ week.name||"—";
+
+
+ document
+ .getElementById(
+  "sumDays"
+ )
  .textContent=
  week.days.filter(
   d=>d.worked
  ).length;
 
- week.days.forEach((d,di)=>{
 
-  const el=
-   document.querySelectorAll(".day")[di];
+ document
+ .querySelectorAll(
+  ".day"
+ )
+ .forEach(
+  (el,i)=>{
 
-  if(el){
-
-   const total=
-    d.lines.reduce(
-     (a,l)=>a+(parseFloat(l.hours)||0),
+   const t=
+    week.days[i]
+    .lines
+    .reduce(
+     (a,l)=>
+      a+
+      (parseFloat(l.hours)||0),
      0
     );
 
-   el.querySelector(
-    ".day-total"
-   ).textContent=
-    fmtNum(total)+" h";
+
+   const x=
+    el.querySelector(
+     ".day-total"
+    );
+
+
+   if(x){
+
+    x.textContent=
+     fmtNum(t)+" h";
+
+   }
 
   }
-
- });
+ );
 
 }
 
 
+
 /* =========================
-   GUARDAR
+   RENDER
+   ========================= */
+
+function render(){
+
+ document
+ .getElementById(
+  "name"
+ )
+ .value=
+  week.name ||
+  localStorage.getItem(
+   "parte_profile_name"
+  ) ||
+  "";
+
+
+ document
+ .getElementById(
+  "weekStart"
+ )
+ .value=
+  week.start ||
+  mondayOf(
+   todayISO()
+  );
+
+
+ document
+ .getElementById(
+  "days"
+ )
+ .innerHTML=
+  week.days
+  .map(
+   dayHTML
+  )
+  .join("");
+
+
+ updateTotals();
+
+ renderHistory();
+
+ renderSavedSites();
+
+}
+
+
+
+/* =========================
+   GUARDAR PARTE
    ========================= */
 
 function savePart(){
 
  week.name=
-  document.getElementById("name").value.trim();
+  document
+  .getElementById(
+   "name"
+  )
+  .value
+  .trim();
+
 
  week.start=
-  document.getElementById("weekStart").value ||
+  document
+  .getElementById(
+   "weekStart"
+  )
+  .value ||
   week.start;
 
- localStorage.setItem(
-  "parte_profile_name",
-  week.name
- );
 
  localStorage.setItem(
   "parte_current",
-  JSON.stringify(week)
+  JSON.stringify(
+   week
+  )
  );
 
- const history=
+
+ let history=
   JSON.parse(
-   localStorage.getItem("parte_history") ||
-   "[]"
+   localStorage.getItem(
+    "parte_history"
+   ) || "[]"
   );
+
+
+ const i=
+  history.findIndex(
+   x=>
+    x.start===
+    week.start
+  );
+
 
  const copy=
-  JSON.parse(JSON.stringify(week));
-
- const idx=
-  history.findIndex(
-   x=>x.start===week.start
+  JSON.parse(
+   JSON.stringify(
+    week
+   )
   );
 
- if(idx>=0){
-  history[idx]=copy;
+
+ if(i>=0){
+
+  history[i]=copy;
+
  }else{
+
   history.unshift(copy);
+
  }
+
 
  localStorage.setItem(
   "parte_history",
   JSON.stringify(
-   history.slice(0,30)
+   history.slice(
+    0,
+    20
+   )
   )
  );
 
+
  renderHistory();
 
- toast("✅ Parte guardado");
+ toast(
+  "Parte guardado correctamente"
+ );
 
 }
 
-
-/* =========================
-   ENVIADO
-   ========================= */
-
-function markSent(){
-
- week.sent=true;
-
- savePart();
-
- renderStatus();
-
- toast("✅ Parte marcado como enviado");
-
-}
-
-
-function markPending(){
-
- week.sent=false;
-
- savePart();
-
- renderStatus();
-
- toast("Parte marcado como pendiente");
-
-}
-
-
-function renderStatus(){
-
- const box=
-  document.getElementById("statusBox");
-
- if(week.sent){
-
-  box.className="status sent";
-
-  box.innerHTML=
-   "✅ Este parte está marcado como ENVIADO.";
-
- }else{
-
-  box.className="status pending";
-
-  box.innerHTML=
-   "⚠️ Este parte está pendiente de enviar.";
-
- }
-
-}
 
 
 /* =========================
@@ -1634,442 +1759,558 @@ function renderHistory(){
 
  const h=
   JSON.parse(
-   localStorage.getItem("parte_history") ||
-   "[]"
+   localStorage.getItem(
+    "parte_history"
+   ) || "[]"
   );
 
- document.getElementById("history").innerHTML=
+
+ document
+ .getElementById(
+  "history"
+ )
+ .innerHTML=
+
  h.length
+
  ?
- h.map((x,i)=>`
+
+ h.map(
+  (x,i)=>`
 
   <div class="history-item">
 
    <b>
-    ${esc(x.name||"Sin nombre")}
+   ${esc(
+    x.name ||
+    "Sin nombre"
+   )}
    </b>
 
    <span>
-    Semana del ${fmt(x.start)}
-    ·
-    ${fmtNum(
+   ${fmt(x.start)}
+   ·
+   ${
+    fmtNum(
      x.days.reduce(
       (a,d)=>
        a+
        d.lines.reduce(
         (b,l)=>
-         b+(parseFloat(l.hours)||0),
+         b+
+         (parseFloat(l.hours)||0),
         0
        ),
       0
      )
-    )} h
+    )
+   } h
    </span>
 
-   <div class="grid2" style="margin-top:8px">
+
+   <div
+    class="grid2"
+    style="margin-top:8px"
+   >
 
     <button
      class="light"
-     onclick="loadHistory(${i})"
+     onclick="
+     loadHistory(${i})
+     "
     >
-     Abrir
+    Abrir
     </button>
+
 
     <button
      class="red"
-     onclick="deleteHistory(${i})"
+     onclick="
+     deleteHistory(${i})
+     "
     >
-     Eliminar
+    Eliminar
     </button>
 
    </div>
 
   </div>
 
- `).join("")
+ `
+ ).join("")
+
  :
+
  "<p class='small'>Todavía no hay partes guardados.</p>";
 
 }
 
 
+
+/* =========================
+   ABRIR HISTORIAL
+   ========================= */
+
 function loadHistory(i){
 
  const h=
   JSON.parse(
-   localStorage.getItem("parte_history") ||
-   "[]"
+   localStorage.getItem(
+    "parte_history"
+   ) || "[]"
   );
+
 
  week=h[i];
 
+
  localStorage.setItem(
   "parte_current",
-  JSON.stringify(week)
+  JSON.stringify(
+   week
+  )
  );
+
 
  render();
 
- window.scrollTo({
+
+ scrollTo({
   top:0,
   behavior:"smooth"
  });
 
- toast("Parte cargado");
+
+ toast(
+  "Parte cargado"
+ );
 
 }
 
+
+
+/* =========================
+   BORRAR HISTORIAL
+   ========================= */
 
 function deleteHistory(i){
 
  const h=
   JSON.parse(
-   localStorage.getItem("parte_history") ||
-   "[]"
+   localStorage.getItem(
+    "parte_history"
+   ) || "[]"
   );
 
- h.splice(i,1);
+
+ h.splice(
+  i,
+  1
+ );
+
 
  localStorage.setItem(
   "parte_history",
   JSON.stringify(h)
  );
 
+
  renderHistory();
 
 }
 
 
+
 /* =========================
-   PDF
+   GUARDAR OBRA
    ========================= */
+
+function addSavedSite(){
+
+ const el=
+  document.getElementById(
+   "newSite"
+  );
+
+
+ const v=
+  el.value.trim();
+
+
+ if(!v)return;
+
+
+ const a=
+  savedSites();
+
+
+ if(!a.includes(v)){
+
+  a.push(v);
+
+ }
+
+
+ a.sort(
+  (x,y)=>
+   x.localeCompare(
+    y,
+    "es"
+   )
+ );
+
+
+ saveSites(a);
+
+
+ el.value="";
+
+
+ renderSavedSites();
+
+ render();
+
+}
+
+
+
+/* =========================
+   ELIMINAR OBRA GUARDADA
+   ========================= */
+
+function removeSavedSite(i){
+
+ const a=
+  savedSites();
+
+
+ a.splice(
+  i,
+  1
+ );
+
+
+ saveSites(a);
+
+ renderSavedSites();
+
+ render();
+
+}
+
+
+
+/* =========================
+   MOSTRAR OBRAS GUARDADAS
+   ========================= */
+
+function renderSavedSites(){
+
+ const a=
+  savedSites();
+
+
+ document
+ .getElementById(
+  "savedSites"
+ )
+ .innerHTML=
+
+ a.length
+
+ ?
+
+ a.map(
+  (s,i)=>`
+
+  <div
+   class="history-item"
+  >
+
+   <b>
+   ${esc(s)}
+   </b>
+
+
+   <button
+    class="red"
+    style="margin-top:8px"
+    onclick="
+    removeSavedSite(${i})
+    "
+   >
+   Eliminar
+   </button>
+
+  </div>
+
+ `
+ ).join("")
+
+ :
+
+ "<p class='small'>No hay obras guardadas todavía.</p>";
+
+}
+
+
+
+/* ==================================================
+   GENERADOR DEL PDF PROFESIONAL
+   ================================================== */
 
 function buildPrint(){
 
- document.getElementById("pName")
- .textContent=
- week.name||"";
-
- const date=
-  new Date(week.start+"T12:00:00");
-
- let month=
-  date.toLocaleDateString(
-   "es-ES",
-   {month:"long"}
-  );
-
- month=
-  month.charAt(0).toUpperCase()+
-  month.slice(1);
-
- document.getElementById("pMonth")
- .textContent=month;
-
- document.getElementById("pYear")
- .textContent=date.getFullYear();
-
- let total=0;
-
  const rows=
-  week.days.map(d=>{
+  week.days
+  .map(
+   d=>{
 
-   const dayHours=
-    d.lines.reduce(
-     (a,l)=>
-      a+(parseFloat(l.hours)||0),
-     0
-    );
+    const dayTotal=
+     d.lines.reduce(
+      (a,l)=>
+       a+
+       (parseFloat(l.hours)||0),
+      0
+     );
 
-   total+=dayHours;
 
-   const works=
-    d.lines
-    .filter(
-     l=>l.site || l.hours!==""
-    )
-    .map(
-     l=>{
-      const h=
-       parseFloat(l.hours)||0;
+    const works=
+     d.lines.filter(
+      l=>
+       l.site ||
+       l.hours ||
+       l.note
+     );
 
-      if(l.site && h){
-       return `${fmtNum(h)} h — ${esc(l.site)}`;
-      }
 
-      if(l.site){
-       return esc(l.site);
-      }
+    const obra=
+     works
+     .map(
+      l=>
+       esc(
+        l.site||""
+       )
+     )
+     .filter(Boolean)
+     .join("<br>");
 
-      if(h){
-       return `${fmtNum(h)} h`;
-      }
 
-      return "";
-     }
-    )
-    .filter(Boolean)
-    .join("<br>");
+    const notes=
+     [
+      ...works
+       .map(
+        l=>l.note
+       )
+       .filter(Boolean),
 
-   const notes=[
-    ...d.lines
-     .map(l=>l.note)
-     .filter(Boolean),
-    d.note
-   ]
-   .filter(Boolean)
-   .map(esc)
-   .join("<br>");
+      d.note
+     ]
+     .filter(Boolean)
+     .map(esc)
+     .join("<br>");
 
-   return `
+
+    return `
 
     <tr>
 
-     <td class="day-col">
+     <td class="day">
 
-      <span class="day-name">
-       ${d.name}
-      </span>
+      ${esc(d.name)}
 
-      <span class="day-date">
-       ${fmt(d.date)}
-      </span>
+      <small>
+      ${fmt(d.date)}
+      </small>
 
      </td>
 
-     <td class="hours-col">
-      ${dayHours ? fmtNum(dayHours):""}
+
+     <td class="hours">
+
+      ${fmtNum(dayTotal)}
+
      </td>
 
-     <td class="work-col">
-      ${works}
+
+     <td>
+      ${obra}
      </td>
 
-     <td class="obs-col">
+
+     <td>
       ${notes}
      </td>
 
     </tr>
 
-   `;
+    `;
 
-  }).join("");
+   }
+  )
+  .join("");
 
- document.getElementById("printDays")
- .innerHTML=rows;
 
- document.getElementById("pTotal")
- .textContent=fmtNum(total);
+ document
+ .getElementById(
+  "pName"
+ )
+ .textContent=
+  week.name||"";
+
+
+ document
+ .getElementById(
+  "pDates"
+ )
+ .textContent=
+  `${fmt(week.start)} al ${fmt(addDays(week.start,6))}`;
+
+
+ document
+ .getElementById(
+  "pDays"
+ )
+ .innerHTML=
+  rows;
+
+
+ document
+ .getElementById(
+  "pTotal"
+ )
+ .textContent=
+  fmtNum(
+   totalHours()
+  );
+
+
+ document
+ .getElementById(
+  "pFooter"
+ )
+ .textContent=
+  new Date()
+  .toLocaleDateString(
+   "es-ES"
+  );
 
 }
 
-
-function buildPrint(){
-
- const printDays=document.getElementById("printDays");
- const printTotal=document.getElementById("pTotal");
-
- if(!printDays || !printTotal){
-  return;
- }
-
- let total=0;
- let rows="";
-
- week.days.forEach(d=>{
-
-  const dayTotal=d.lines.reduce(
-   (sum,l)=>sum+(parseFloat(l.hours)||0),
-   0
-  );
-
-  total+=dayTotal;
-
-  const validLines=d.lines.filter(
-   l=>l.hours || l.site || l.note
-  );
-
-  let horas="";
-  let obras="";
-  let notas="";
-
-  validLines.forEach(l=>{
-
-   if(l.hours){
-    horas+=`${fmtNum(parseFloat(l.hours))}<br>`;
-   }
-
-   if(l.site){
-    obras+=`${esc(l.site)}<br>`;
-   }
-
-   if(l.note){
-    notas+=`${esc(l.note)}<br>`;
-   }
-
-  });
-
-  if(d.note){
-   notas+=`${esc(d.note)}<br>`;
-  }
-
-  rows+=`
-   <tr>
-    <td>
-     <strong>${esc(d.name)}</strong><br>
-     <span>${fmt(d.date)}</span>
-    </td>
-
-    <td class="p-hours">
-     ${horas}
-    </td>
-
-    <td>
-     ${obras}
-    </td>
-
-    <td>
-     ${notas}
-    </td>
-   </tr>
-  `;
-
- });
-
- printDays.innerHTML=rows;
-
- printTotal.textContent=
-  fmtNum(total)+" horas";
-
-}
 
 
 /* =========================
-   AVISOS
+   IMPRIMIR / PDF
    ========================= */
 
-async function enableNotifications(){
-
- if(!("Notification" in window)){
-
-  toast("Este dispositivo no permite avisos del navegador.");
-
-  return;
-
- }
-
- const permission=
-  await Notification.requestPermission();
-
- if(permission==="granted"){
-
-  localStorage.setItem(
-   "parte_notifications",
-   "yes"
-  );
-
-  new Notification(
-   "Parte de horas",
-   {
-    body:"Avisos activados correctamente."
-   }
-  );
-
-  checkReminder();
-
- }else{
-
-  toast("Tienes que permitir las notificaciones.");
-
- }
-
-}
-
-
-/*
- Los avisos de una web estática no pueden garantizar
- notificaciones en segundo plano cuando el navegador
- está completamente cerrado.
-
- Esta función comprueba el estado cuando la aplicación
- está abierta.
-*/
-
-function checkReminder(){
+function printPart(){
 
  if(
-  localStorage.getItem(
-   "parte_notifications"
-  )!=="yes"
- )return;
-
- if(week.sent)return;
-
- const now=
-  new Date();
-
- const end=
-  new Date(
-   addDays(week.start,6)+"T23:59:59"
-  );
-
- if(now>end){
-
-  notifyReminder(
-   "El parte sigue pendiente de enviar."
-  );
-
-  return;
-
- }
-
- const day=
-  now.getDay();
-
- if(day===5 || day===1){
-
-  notifyReminder(
-   "Recuerda revisar y enviar tu parte de horas."
-  );
-
- }
-
-}
-
-
-function notifyReminder(message){
-
- if(
-  "Notification" in window &&
-  Notification.permission==="granted"
+  !week.days ||
+  !week.days.length
  ){
 
-  const last=
-   localStorage.getItem(
-    "parte_last_notification"
-   );
-
-  const today=todayISO();
-
-  if(last!==today){
-
-   new Notification(
-    "📋 Parte de horas",
-    {
-     body:message
-    }
-   );
-
-   localStorage.setItem(
-    "parte_last_notification",
-    today
-   );
-
-  }
+  createWeek();
 
  }
 
+
+ week.name=
+  document
+  .getElementById(
+   "name"
+  )
+  .value
+  .trim();
+
+
+ week.start=
+  document
+  .getElementById(
+   "weekStart"
+  )
+  .value ||
+  week.start;
+
+
+ buildPrint();
+
+
+ setTimeout(
+  ()=>{
+   window.print();
+  },
+  100
+ );
+
 }
+
+
+
+/* =========================
+   MENSAJE
+   ========================= */
+
+function toast(msg){
+
+ const t=
+  document.getElementById(
+   "toast"
+  );
+
+
+ t.textContent=msg;
+
+
+ t.classList.remove(
+  "hidden"
+ );
+
+
+ clearTimeout(
+  window.toastTimer
+ );
+
+
+ window.toastTimer=
+  setTimeout(
+   ()=>{
+    t.classList.add(
+     "hidden"
+    );
+   },
+   1800
+  );
+
+}
+
+
+
+/* =========================
+   NOMBRE
+   ========================= */
+
+document
+.getElementById("name")
+.addEventListener(
+ "input",
+ e=>{
+
+  week.name=
+   e.target.value;
+
+
+  localStorage.setItem(
+   "parte_profile_name",
+   e.target.value
+  );
+
+
+  updateTotals();
+
+ }
+);
+
 
 
 /* =========================
@@ -2077,61 +2318,20 @@ function notifyReminder(message){
    ========================= */
 
 document
- .getElementById("name")
- .addEventListener(
-  "input",
-  e=>{
-
-   week.name=e.target.value;
-
-   localStorage.setItem(
-    "parte_profile_name",
-    e.target.value
-   );
-
-   document.getElementById("sumName")
-    .textContent=
-    e.target.value||"—";
-
-  }
+.getElementById(
+ "weekStart"
+)
+.value=
+ mondayOf(
+  todayISO()
  );
-
-
-document
- .getElementById("newObra")
- .addEventListener(
-  "keydown",
-  e=>{
-   if(e.key==="Enter"){
-    addObra();
-   }
-  }
- );
-
-
-document.getElementById("weekStart")
- .value=
- mondayOf(todayISO());
-
-
-const savedName=
- localStorage.getItem(
-  "parte_profile_name"
- );
-
-
-if(savedName){
-
- document.getElementById("name")
- .value=savedName;
-
-}
 
 
 const current=
  JSON.parse(
-  localStorage.getItem("parte_current") ||
-  "null"
+  localStorage.getItem(
+   "parte_current"
+  ) || "null"
  );
 
 
@@ -2139,48 +2339,30 @@ if(current){
 
  week=current;
 
- if(!week.days?.length){
-  week.days=blankDays(week.start);
- }
-
  render();
 
 }else{
 
  const start=
-  mondayOf(todayISO());
+  mondayOf(
+   todayISO()
+  );
+
 
  week={
   start:start,
-  name:savedName||"",
-  sent:false,
-  days:blankDays(start)
+
+  name:
+   localStorage.getItem(
+    "parte_profile_name"
+   ) || "",
+
+  days:
+   blankDays(start)
  };
 
+
  render();
-
-}
-
-
-checkReminder();
-
-
-setInterval(
- checkReminder,
- 60000
-);
-
-
-if("serviceWorker" in navigator){
-
- window.addEventListener(
-  "load",
-  ()=>{
-   navigator.serviceWorker
-    .register("sw.js")
-    .catch(()=>{});
-  }
- );
 
 }
 
