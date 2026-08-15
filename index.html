@@ -2,377 +2,323 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#111">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111111">
 <title>Parte De Santiago Román</title>
 
 <style>
-:root{
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
---bg:#f4f4f7;
---card:#fff;
---ink:#111;
---muted:#6b7280;
---line:#e5e7eb;
---green:#16843d;
---blue:#1769d1;
---red:#b42318;
-}
-
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-margin:0;
-background:var(--bg);
-color:var(--ink);
-}
-
-button,input,select{
-font:inherit;
-}
-
-button{
-cursor:pointer;
+  margin:0;
+  background:#f4f4f7;
+  color:#111;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
 }
 
 .app{
-max-width:760px;
-margin:auto;
-padding:15px 14px 35px;
+  max-width:760px;
+  margin:auto;
+  padding:16px;
 }
 
 header{
-padding:8px 2px 18px;
+  padding:8px 0 18px;
 }
 
 h1{
-font-size:26px;
-margin:0;
+  margin:0;
+  font-size:27px;
 }
 
 h2{
-font-size:19px;
-margin:0 0 14px;
+  margin:0 0 15px;
+  font-size:19px;
 }
 
 .muted{
-color:var(--muted);
+  color:#6b7280;
+  margin-top:5px;
 }
 
 .card{
-background:var(--card);
-border-radius:20px;
-padding:18px;
-margin-bottom:14px;
-box-shadow:0 4px 18px #0000000c;
+  background:white;
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:14px;
+  box-shadow:0 4px 18px rgba(0,0,0,.06);
 }
 
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-}
-
-.field{
-margin-bottom:12px;
-}
-
-.field label{
-display:block;
-font-size:13px;
-font-weight:750;
-margin-bottom:6px;
+label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:6px;
 }
 
 input,
 select{
-width:100%;
-padding:12px;
-border:1px solid #d1d5db;
-border-radius:12px;
-background:#fff;
+  width:100%;
+  padding:12px;
+  border:1px solid #d1d5db;
+  border-radius:12px;
+  background:white;
+  font:inherit;
 }
 
 button{
-border:0;
-border-radius:13px;
-padding:13px 15px;
-font-weight:750;
-}
-
-.primary{
-background:#111;
-color:#fff;
+  width:100%;
+  border:0;
+  border-radius:12px;
+  padding:13px;
+  font:inherit;
+  font-weight:700;
+  cursor:pointer;
 }
 
 .green{
-background:var(--green);
-color:#fff;
+  background:#16843d;
+  color:white;
 }
 
 .blue{
-background:var(--blue);
-color:#fff;
+  background:#1769d1;
+  color:white;
+}
+
+.dark{
+  background:#111;
+  color:white;
 }
 
 .light{
-background:#eef0f3;
-color:#111;
+  background:#eef0f3;
+  color:#111;
 }
 
 .red{
-background:#fee4e2;
-color:var(--red);
+  background:#fee4e2;
+  color:#b42318;
 }
 
-.actions{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:9px;
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
 }
 
-.actions.one{
-grid-template-columns:1fr;
+.field{
+  margin-bottom:12px;
 }
 
 .notice{
-padding:12px;
-border-radius:12px;
-background:#eef6ff;
-color:#174a8b;
-font-size:13px;
-margin-top:3px;
-}
-
-.home-stat{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-
-.stat{
-background:#f7f7f8;
-border-radius:14px;
-padding:14px;
-}
-
-.stat b{
-display:block;
-font-size:22px;
-margin-top:3px;
-}
-
-.week-card{
-border:1px solid var(--line);
-border-radius:15px;
-padding:14px;
-margin-top:10px;
-}
-
-.week-head{
-display:flex;
-justify-content:space-between;
-gap:10px;
-}
-
-.badge{
-background:#eee;
-border-radius:999px;
-padding:5px 9px;
-font-size:12px;
-font-weight:750;
-height:max-content;
-}
-
-.week-actions{
-display:flex;
-gap:8px;
-margin-top:10px;
-}
-
-.week-actions button{
-flex:1;
+  background:#eef6ff;
+  color:#174a8b;
+  padding:12px;
+  border-radius:12px;
+  font-size:13px;
 }
 
 .day{
-border:1px solid var(--line);
-border-radius:15px;
-padding:14px;
-margin:10px 0;
+  border:1px solid #e5e7eb;
+  border-radius:15px;
+  padding:14px;
+  margin-bottom:10px;
 }
 
 .day.off{
-opacity:.48;
-background:#fafafa;
+  opacity:.45;
+  background:#fafafa;
 }
 
-.daytop{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:8px;
-margin-bottom:10px;
+.day-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
 }
 
-.dayname{
-font-weight:800;
+.day-name{
+  font-weight:800;
 }
 
 .check{
-display:flex;
-align-items:center;
-gap:7px;
-font-size:13px;
-font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:13px;
+  margin:0;
 }
 
 .check input{
-width:20px;
-height:20px;
+  width:20px;
+  height:20px;
 }
 
-.daygrid{
-display:grid;
-grid-template-columns:100px 1fr;
-gap:10px;
+.day-fields{
+  display:grid;
+  grid-template-columns:100px 1fr;
+  gap:10px;
 }
 
-.daygrid2{
-display:grid;
-grid-template-columns:1fr 1.5fr;
-gap:10px;
+.total{
+  display:flex;
+  justify-content:space-between;
+  border-top:1px solid #eee;
+  padding-top:15px;
+  margin-top:15px;
+  font-weight:800;
 }
 
-.totalbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-top:1px solid var(--line);
-padding-top:14px;
-margin-top:14px;
-font-weight:800;
+.total-number{
+  font-size:25px;
 }
 
-.totalnum{
-font-size:25px;
+.week{
+  border:1px solid #e5e7eb;
+  border-radius:15px;
+  padding:14px;
+  margin-bottom:10px;
+}
+
+.week-title{
+  font-weight:800;
+}
+
+.week-info{
+  color:#6b7280;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.week-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr 60px;
+  gap:8px;
+  margin-top:12px;
+}
+
+.badge{
+  display:inline-block;
+  background:#eee;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:700;
 }
 
 .empty{
-text-align:center;
-padding:25px;
-color:var(--muted);
-}
-
-.small{
-font-size:12px;
+  text-align:center;
+  color:#6b7280;
+  padding:20px;
 }
 
 .toast{
-position:fixed;
-left:14px;
-right:14px;
-bottom:18px;
-background:#111;
-color:#fff;
-border-radius:14px;
-padding:14px;
-text-align:center;
-z-index:20;
-box-shadow:0 8px 30px #0004;
+  position:fixed;
+  left:15px;
+  right:15px;
+  bottom:20px;
+  background:#111;
+  color:white;
+  padding:14px;
+  border-radius:14px;
+  text-align:center;
+  z-index:100;
+}
+
+.hidden{
+  display:none;
 }
 
 /* PDF */
 
 .print{
-display:none;
+  display:none;
 }
 
 @media(max-width:600px){
 
-.grid,
-.daygrid,
-.daygrid2,
-.actions{
-grid-template-columns:1fr;
-}
+  .grid{
+    grid-template-columns:1fr;
+  }
 
-.week-actions{
-flex-direction:column;
-}
+  .day-fields{
+    grid-template-columns:1fr;
+  }
+
+  .week-buttons{
+    grid-template-columns:1fr;
+  }
 
 }
 
 @media print{
 
-@page{
-size:A4;
-margin:12mm;
-}
+  @page{
+    size:A4;
+    margin:12mm;
+  }
 
-body{
-background:#fff;
-}
+  body{
+    background:white;
+  }
 
-.app{
-display:none!important;
-}
+  .app{
+    display:none !important;
+  }
 
-.print{
-display:block!important;
-font-family:Arial,sans-serif;
-color:#111;
-}
+  .print{
+    display:block !important;
+    font-family:Arial,sans-serif;
+    color:#111;
+  }
 
-.print h1{
-text-align:center;
-font-size:21px;
-margin:0 0 12px;
-}
+  .print h1{
+    text-align:center;
+    font-size:22px;
+    margin-bottom:15px;
+  }
 
-.meta{
-display:grid;
-grid-template-columns:1.5fr 1fr;
-border:1px solid #111;
-}
+  .print-info{
+    border:1px solid #111;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
 
-.meta div{
-padding:7px;
-border-right:1px solid #111;
-font-size:11px;
-}
+  .print-info div{
+    padding:8px;
+    font-size:12px;
+    border-right:1px solid #111;
+  }
 
-.meta div:last-child{
-border:0;
-}
+  .print-info div:last-child{
+    border-right:0;
+  }
 
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:14px;
-font-size:10.5px;
-}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+    font-size:11px;
+  }
 
-th,
-td{
-border:1px solid #111;
-padding:6px;
-vertical-align:top;
-}
+  th,
+  td{
+    border:1px solid #111;
+    padding:7px;
+    text-align:left;
+  }
 
-th{
-background:#eee;
-}
+  th{
+    background:#eee;
+  }
 
-.print-total{
-text-align:right;
-font-weight:800;
-margin-top:8px;
-font-size:12px;
-}
-
+  .print-total{
+    text-align:right;
+    font-weight:bold;
+    margin-top:10px;
+  }
 }
 </style>
 </head>
@@ -383,179 +329,241 @@ font-size:12px;
 
 <div id="print" class="print"></div>
 
-
 <script>
 
-const KEY="santiago_partes_v2";
+const PARTS_KEY = "santiago_partes_final";
 
-const WORKS_KEY="santiago_obras_v2";
+const WORKS_KEY = "santiago_obras_final";
 
-const DAYS=[
-"Lunes",
-"Martes",
-"Miércoles",
-"Jueves",
-"Viernes",
-"Sábado",
-"Domingo"
+const DAYS = [
+  "Lunes",
+  "Martes",
+  "Miércoles",
+  "Jueves",
+  "Viernes",
+  "Sábado",
+  "Domingo"
 ];
 
-let screen="home";
+let currentPage = "home";
 
-let draft=null;
+let currentPart = null;
 
-let editingId=null;
-
-
-/* =========================
-   FUNCIONES GENERALES
-========================= */
-
-function uid(){
-
-return Date.now().toString(36)+"-"+
-Math.random().toString(36).slice(2,8);
-
-}
-
-
-function iso(d){
-
-return new Date(d).toISOString().slice(0,10);
-
-}
-
-
-function monday(v){
-
-let d=new Date(v+"T12:00:00");
-
-let n=d.getDay();
-
-d.setDate(
-d.getDate()-(n===0?6:n-1)
-);
-
-return d;
-
-}
-
-
-function fmt(v){
-
-return new Date(v+"T12:00:00")
-.toLocaleDateString(
-"es-ES",
-{
-day:"2-digit",
-month:"2-digit",
-year:"numeric"
-}
-);
-
-}
-
-
-function weekText(v){
-
-let s=new Date(v+"T12:00:00");
-
-let e=new Date(s);
-
-e.setDate(e.getDate()+6);
-
-return fmt(v)+" → "+fmt(iso(e));
-
-}
-
-
-function esc(v){
-
-return String(v??"")
-.replace(/[&<>"']/g,m=>({
-
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#39;"
-
-}[m]));
-
-}
+let editingId = null;
 
 
 /* =========================
-   DATOS
+   UTILIDADES
 ========================= */
 
 function getParts(){
 
-return JSON.parse(
-localStorage.getItem(KEY)||"[]"
-);
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(PARTS_KEY)
+    ) || [];
+
+  }catch(e){
+
+    return [];
+
+  }
 
 }
 
 
-function setParts(a){
+function saveParts(parts){
 
-localStorage.setItem(
-KEY,
-JSON.stringify(a)
-);
+  localStorage.setItem(
+    PARTS_KEY,
+    JSON.stringify(parts)
+  );
 
 }
 
 
 function getWorks(){
 
-let a=JSON.parse(
-localStorage.getItem(WORKS_KEY)||"[]"
-);
+  try{
 
-["10043","30339"].forEach(x=>{
+    let works = JSON.parse(
+      localStorage.getItem(WORKS_KEY)
+    ) || [];
 
-if(!a.includes(x)){
-a.push(x);
-}
+    if(!works.includes("10043")){
+      works.push("10043");
+    }
 
-});
+    if(!works.includes("30339")){
+      works.push("30339");
+    }
 
-localStorage.setItem(
-WORKS_KEY,
-JSON.stringify(a)
-);
+    saveWorks(works);
 
-return a;
+    return works;
 
-}
+  }catch(e){
 
+    return ["10043","30339"];
 
-function setWorks(a){
-
-localStorage.setItem(
-WORKS_KEY,
-JSON.stringify(a)
-);
+  }
 
 }
 
 
-function toast(t){
+function saveWorks(works){
 
-let x=document.createElement("div");
+  localStorage.setItem(
+    WORKS_KEY,
+    JSON.stringify(works)
+  );
 
-x.className="toast";
+}
 
-x.textContent=t;
 
-document.body.appendChild(x);
+function createId(){
 
-setTimeout(
-()=>x.remove(),
-1800
-);
+  return Date.now().toString(36) +
+  Math.random().toString(36).substring(2);
+
+}
+
+
+function localDate(date){
+
+  const y = date.getFullYear();
+
+  const m = String(
+    date.getMonth()+1
+  ).padStart(2,"0");
+
+  const d = String(
+    date.getDate()
+  ).padStart(2,"0");
+
+  return y+"-"+m+"-"+d;
+
+}
+
+
+function getMonday(value){
+
+  let date = new Date(
+    value+"T12:00:00"
+  );
+
+  if(isNaN(date.getTime())){
+
+    date = new Date();
+
+  }
+
+  const day = date.getDay();
+
+  const difference =
+    day === 0
+    ? -6
+    : 1-day;
+
+  date.setDate(
+    date.getDate()+difference
+  );
+
+  return date;
+
+}
+
+
+function formatDate(value){
+
+  const date = new Date(
+    value+"T12:00:00"
+  );
+
+  return date.toLocaleDateString(
+    "es-ES",
+    {
+      day:"2-digit",
+      month:"2-digit",
+      year:"numeric"
+    }
+  );
+
+}
+
+
+function weekText(start){
+
+  const first = new Date(
+    start+"T12:00:00"
+  );
+
+  const last = new Date(first);
+
+  last.setDate(
+    last.getDate()+6
+  );
+
+  return formatDate(start)
+  +" → "
+  +formatDate(localDate(last));
+
+}
+
+
+function escapeHTML(value){
+
+  return String(value || "")
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+
+}
+
+
+function totalHours(part){
+
+  return part.days.reduce(
+    function(total,day){
+
+      if(!day.worked){
+
+        return total;
+
+      }
+
+      return total +
+      (Number(day.hours) || 0);
+
+    },
+    0
+  );
+
+}
+
+
+function showToast(message){
+
+  const toast =
+    document.createElement("div");
+
+  toast.className="toast";
+
+  toast.textContent=message;
+
+  document.body.appendChild(toast);
+
+  setTimeout(
+    function(){
+
+      toast.remove();
+
+    },
+    1800
+  );
 
 }
 
@@ -564,88 +572,49 @@ setTimeout(
    NUEVO PARTE
 ========================= */
 
-function newDraft(v){
+function createNewPart(start){
 
-let s=monday(v);
+  const monday =
+    getMonday(start);
 
-let days=[];
+  const days=[];
 
-for(let i=0;i<7;i++){
+  for(let i=0;i<7;i++){
 
-let d=new Date(s);
+    const date =
+      new Date(monday);
 
-d.setDate(
-s.getDate()+i
-);
+    date.setDate(
+      monday.getDate()+i
+    );
 
-days.push({
+    days.push({
 
-date:iso(d),
+      date:localDate(date),
 
-worked:i<5,
+      worked:i<5,
 
-hours:i<5?8:"",
+      hours:i<5 ? 8 : "",
 
-obra:"",
+      obra:"",
 
-obs:""
+      obs:""
 
-});
+    });
 
-}
+  }
 
-return{
+  return {
 
-id:uid(),
+    id:createId(),
 
-start:iso(s),
+    name:"Santiago Román",
 
-name:"Santiago Román",
+    start:localDate(monday),
 
-days:days
+    days:days
 
-};
-
-}
-
-
-/* =========================
-   TOTAL
-========================= */
-
-function total(p){
-
-return p.days.reduce(
-(s,d)=>
-s+
-(
-d.worked
-?
-Number(d.hours)||0
-:
-0
-),
-0
-);
-
-}
-
-
-/* =========================
-   PANTALLA
-========================= */
-
-function render(){
-
-if(screen==="home"){
-
-home();
-
-}else{
-
-editor();
-
-}
+  };
 
 }
 
@@ -654,26 +623,62 @@ editor();
    INICIO
 ========================= */
 
-function home(){
+function renderHome(){
 
-const app=
-document.getElementById("app");
+  currentPage="home";
 
-const parts=
-getParts()
-.sort(
-(a,b)=>
-b.start.localeCompare(a.start)
-);
+  const parts =
+    getParts().sort(
+      function(a,b){
 
-const hours=
-parts.reduce(
-(s,p)=>
-s+total(p),
-0
-);
+        return b.start.localeCompare(
+          a.start
+        );
 
-app.innerHTML=`
+      }
+    );
+
+  const total =
+    parts.reduce(
+      function(sum,part){
+
+        return sum +
+        totalHours(part);
+
+      },
+      0
+    );
+
+
+  let history="";
+
+
+  if(parts.length===0){
+
+    history=`
+
+      <div class="empty">
+
+        Todavía no tienes
+        partes guardados.
+
+      </div>
+
+    `;
+
+  }else{
+
+    history =
+      parts.map(
+        renderHistoryItem
+      ).join("");
+
+  }
+
+
+  document.getElementById(
+    "app"
+  ).innerHTML=`
 
 <header>
 
@@ -691,8 +696,9 @@ Control de horas y obras
 <div class="card">
 
 <h2>
-Crear un nuevo parte
+Crear nuevo parte
 </h2>
+
 
 <div class="field">
 
@@ -701,37 +707,36 @@ Semana
 </label>
 
 <input
-id="newDate"
+id="newWeek"
 type="date"
-value="${iso(monday(new Date()))}"
+value="${localDate(
+getMonday(
+new Date()
+)
+)}"
 >
 
 </div>
 
 
-<div class="actions one">
-
 <button
 class="green"
-onclick="startNew()"
+onclick="createPart()"
 >
 
 ➕ Crear parte
 
 </button>
 
-</div>
-
 
 <div style="margin-top:9px">
 
 <button
 class="light"
-style="width:100%"
-onclick="manageWorks()"
+onclick="addWorkFromHome()"
 >
 
-🏗️ Añadir / gestionar obras
+🏗️ Añadir obra
 
 </button>
 
@@ -746,29 +751,29 @@ onclick="manageWorks()"
 Resumen
 </h2>
 
-<div class="home-stat">
+<div class="grid">
 
-<div class="stat">
+<div>
 
-<span class="muted small">
+<div class="muted">
 Partes guardados
-</span>
+</div>
 
-<b>
+<b style="font-size:25px">
 ${parts.length}
 </b>
 
 </div>
 
 
-<div class="stat">
+<div>
 
-<span class="muted small">
-Horas totales
-</span>
+<div class="muted">
+Horas registradas
+</div>
 
-<b>
-${hours} h
+<b style="font-size:25px">
+${total} h
 </b>
 
 </div>
@@ -784,13 +789,7 @@ ${hours} h
 Historial
 </h2>
 
-${
-parts.length
-?
-parts.map(card).join("")
-:
-'<div class="empty">Todavía no hay partes guardados.</div>'
-}
+${history}
 
 </div>
 
@@ -799,61 +798,58 @@ parts.map(card).join("")
 }
 
 
-/* =========================
-   TARJETA PARTE
-========================= */
+function renderHistoryItem(part){
 
-function card(p){
+  const works = [
+    ...new Set(
+      part.days
+      .filter(
+        day =>
+        day.worked &&
+        day.obra
+      )
+      .map(
+        day=>day.obra
+      )
+    )
+  ];
 
-let works=[
-...new Set(
-p.days
-.filter(d=>d.worked&&d.obra)
-.map(d=>d.obra)
-)
-];
+  return `
 
-return`
+<div class="week">
 
-<div class="week-card">
+<div class="week-title">
 
-<div class="week-head">
+${escapeHTML(
+weekText(part.start)
+)}
 
-<div>
+</div>
 
-<b>
-${esc(weekText(p.start))}
-</b>
 
-<div class="muted small">
+<div class="week-info">
 
-${total(p)}
-horas ·
-${works.length
+${totalHours(part)}
+horas
+
+·
+
+${
+works.length
 ?
-works.join(", ")
+"Obras: "+works.join(", ")
 :
-"sin obra"}
-
-</div>
-
-</div>
-
-
-<span class="badge">
-
-${total(p)} h
-
-</span>
+"Sin obra"
+}
 
 </div>
 
 
-<div class="week-actions">
+<div class="week-buttons">
 
 <button
 class="light"
-onclick="edit('${p.id}')"
+onclick="editPart('${part.id}')"
 >
 
 ✏️ Editar
@@ -863,7 +859,7 @@ onclick="edit('${p.id}')"
 
 <button
 class="blue"
-onclick="makePDF('${p.id}')"
+onclick="printPart('${part.id}')"
 >
 
 📄 PDF
@@ -873,7 +869,7 @@ onclick="makePDF('${p.id}')"
 
 <button
 class="red"
-onclick="del('${p.id}')"
+onclick="deletePart('${part.id}')"
 >
 
 🗑️
@@ -890,53 +886,64 @@ onclick="del('${p.id}')"
 
 
 /* =========================
-   CREAR
+   CREAR PARTE
 ========================= */
 
-function startNew(){
+function createPart(){
 
-let v=
-document.getElementById(
-"newDate"
-).value;
+  const start =
+    document.getElementById(
+      "newWeek"
+    ).value;
 
-if(!v)return;
+  if(!start){
 
-draft=newDraft(v);
+    alert(
+      "Selecciona una semana."
+    );
 
-editingId=null;
+    return;
 
-screen="editor";
+  }
 
-render();
+  currentPart =
+    createNewPart(start);
+
+  editingId=null;
+
+  renderEditor();
 
 }
 
 
 /* =========================
-   EDITAR
+   EDITAR PARTE
 ========================= */
 
-function edit(id){
+function editPart(id){
 
-let p=
-getParts()
-.find(
-x=>x.id===id
-);
+  const parts =
+    getParts();
 
-if(!p)return;
+  const part =
+    parts.find(
+      p=>p.id===id
+    );
 
-draft=
-JSON.parse(
-JSON.stringify(p)
-);
+  if(!part){
 
-editingId=id;
+    return;
 
-screen="editor";
+  }
 
-render();
+  currentPart =
+    JSON.parse(
+      JSON.stringify(part)
+    );
+
+  editingId=id;
+
+  renderEditor();
 
 }
 
@@ -945,18 +952,16 @@ render();
    EDITOR
 ========================= */
 
-function editor(){
+function renderEditor(){
 
-const app=
-document.getElementById(
-"app"
-);
+  currentPage="editor";
 
-const works=
-getWorks();
+  const works =
+    getWorks();
 
-
-app.innerHTML=`
+  document.getElementById(
+    "app"
+  ).innerHTML=`
 
 <header>
 
@@ -974,8 +979,10 @@ editingId
 
 <div class="muted">
 
-${esc(
-weekText(draft.start)
+${escapeHTML(
+weekText(
+currentPart.start
+)
 )}
 
 </div>
@@ -995,8 +1002,10 @@ Nombre
 </label>
 
 <input
-id="name"
-value="${esc(draft.name)}"
+id="partName"
+value="${escapeHTML(
+currentPart.name
+)}"
 >
 
 </div>
@@ -1009,27 +1018,27 @@ Semana
 </label>
 
 <input
-id="start"
+id="partStart"
 type="date"
-value="${draft.start}"
-onchange="changeWeek(this.value)"
+value="${currentPart.start}"
+onchange="changePartWeek(this.value)"
 >
 
 </div>
-
 
 </div>
 
 
 <div class="notice">
 
-Lunes a viernes vienen marcados.
+Lunes a viernes están marcados
+automáticamente.
 
-Si trabajas sábado o domingo,
+Si trabajaste sábado o domingo,
 marca <b>Trabajé</b>.
 
-Cada día puede tener
-horas y obra diferentes.
+Puedes poner una obra y horas
+diferentes cada día.
 
 </div>
 
@@ -1043,27 +1052,31 @@ Jornadas
 </h2>
 
 
-${draft.days
+${currentPart.days
 .map(
-(d,i)=>
-day(
-d,
-i,
+function(day,index){
+
+return renderDay(
+day,
+index,
 works
-)
+);
+
+}
 )
 .join("")}
 
 
-<div class="totalbar">
+<div class="total">
 
 <span>
 Total
 </span>
 
-<span class="totalnum">
+<span class="total-number">
 
-${total(draft)} h
+${totalHours(currentPart)}
+h
 
 </span>
 
@@ -1074,11 +1087,9 @@ ${total(draft)} h
 
 <div class="card">
 
-<div class="actions">
-
 <button
 class="green"
-onclick="save()"
+onclick="saveAndReturn()"
 >
 
 💾 Guardar y volver al inicio
@@ -1086,9 +1097,11 @@ onclick="save()"
 </button>
 
 
+<div style="margin-top:9px">
+
 <button
 class="blue"
-onclick="makePDFFromDraft()"
+onclick="printCurrentPart()"
 >
 
 📄 Ver / imprimir PDF
@@ -1102,8 +1115,7 @@ onclick="makePDFFromDraft()"
 
 <button
 class="light"
-style="width:100%"
-onclick="goHome()"
+onclick="renderHome()"
 >
 
 Cancelar
@@ -1124,31 +1136,25 @@ Añadir obra
 
 <div class="grid">
 
-
-<div class="field">
-
-<label>
-Número de obra
-</label>
+<div>
 
 <input
 id="newWork"
 inputmode="numeric"
-placeholder="Ej. 30555"
+placeholder="Número de obra"
 >
 
 </div>
 
 
 <button
-class="primary"
-onclick="addWork()"
+class="dark"
+onclick="addWorkFromEditor()"
 >
 
 Añadir obra
 
 </button>
-
 
 </div>
 
@@ -1163,19 +1169,34 @@ Añadir obra
    DÍA
 ========================= */
 
-function day(d,i,works){
+function renderDay(
+  day,
+  index,
+  works
+){
 
-return`
+  return `
 
-<div class="day ${d.worked?"":"off"}">
+<div
+class="day ${
+day.worked
+?
+""
+:
+"off"
+}"
+>
 
-<div class="daytop">
 
-<div class="dayname">
+<div class="day-top">
 
-${DAYS[i]}
+<div class="day-name">
+
+${DAYS[index]}
+
 ·
-${fmt(d.date)}
+
+${formatDate(day.date)}
 
 </div>
 
@@ -1184,9 +1205,12 @@ ${fmt(d.date)}
 
 <input
 type="checkbox"
-${d.worked?"checked":""}
+${day.worked?"checked":""}
 onchange="
-toggle(${i},this.checked)
+toggleDay(
+${index},
+this.checked
+)
 "
 >
 
@@ -1197,7 +1221,7 @@ Trabajé
 </div>
 
 
-<div class="daygrid">
+<div class="day-fields">
 
 
 <div class="field">
@@ -1210,10 +1234,16 @@ Horas
 type="number"
 min="0"
 step="0.5"
-value="${esc(d.hours)}"
-${d.worked?"":"disabled"}
+value="${escapeHTML(
+day.hours
+)}"
+${day.worked?"":"disabled"}
 onchange="
-setD(${i},'hours',this.value)
+changeDay(
+${index},
+'hours',
+this.value
+)
 "
 >
 
@@ -1227,9 +1257,13 @@ Obra
 </label>
 
 <select
-${d.worked?"":"disabled"}
+${day.worked?"":"disabled"}
 onchange="
-setD(${i},'obra',this.value)
+changeDay(
+${index},
+'obra',
+this.value
+)
 "
 >
 
@@ -1240,31 +1274,36 @@ Selecciona obra
 
 ${works
 .map(
-w=>
-`
+function(work){
+
+return `
 
 <option
-value="${esc(w)}"
-${w===d.obra?"selected":""}
+value="${escapeHTML(work)}"
+${
+work===day.obra
+?
+"selected"
+:
+""
+}
 >
 
-${esc(w)}
+${escapeHTML(work)}
 
 </option>
 
-`
+`;
+
+}
 )
 .join("")}
-
 
 </select>
 
 </div>
 
 </div>
-
-
-<div class="daygrid2">
 
 
 <div class="field">
@@ -1274,15 +1313,19 @@ Observaciones
 </label>
 
 <input
-value="${esc(d.obs)}"
-${d.worked?"":"disabled"}
-onchange="
-setD(${i},'obs',this.value)
-"
 placeholder="Opcional"
+value="${escapeHTML(
+day.obs
+)}"
+${day.worked?"":"disabled"}
+onchange="
+changeDay(
+${index},
+'obs',
+this.value
+)
+"
 >
-
-</div>
 
 </div>
 
@@ -1297,11 +1340,16 @@ placeholder="Opcional"
    CAMBIAR DÍA
 ========================= */
 
-function setD(i,k,v){
+function changeDay(
+  index,
+  field,
+  value
+){
 
-draft.days[i][k]=v;
+  currentPart.days[index][field]=
+    value;
 
-editor();
+  renderEditor();
 
 }
 
@@ -1310,21 +1358,26 @@ editor();
    ACTIVAR DÍA
 ========================= */
 
-function toggle(i,v){
+function toggleDay(
+  index,
+  checked
+){
 
-draft.days[i].worked=v;
+  currentPart.days[index].worked=
+    checked;
 
-if(!v){
 
-draft.days[i].hours="";
+  if(!checked){
 
-draft.days[i].obra="";
+    currentPart.days[index].hours="";
 
-draft.days[i].obs="";
+    currentPart.days[index].obra="";
 
-}
+    currentPart.days[index].obs="";
 
-editor();
+  }
+
+  renderEditor();
 
 }
 
@@ -1333,26 +1386,33 @@ editor();
    CAMBIAR SEMANA
 ========================= */
 
-function changeWeek(v){
+function changePartWeek(
+  value
+){
 
-let s=monday(v);
+  const monday =
+    getMonday(value);
 
-draft.start=iso(s);
+  currentPart.start=
+    localDate(monday);
 
-for(let i=0;i<7;i++){
 
-let d=new Date(s);
+  for(let i=0;i<7;i++){
 
-d.setDate(
-s.getDate()+i
-);
+    const date =
+      new Date(monday);
 
-draft.days[i].date=
-iso(d);
+    date.setDate(
+      monday.getDate()+i
+    );
 
-}
+    currentPart.days[i].date=
+      localDate(date);
 
-editor();
+  }
+
+
+  renderEditor();
 
 }
 
@@ -1361,68 +1421,85 @@ editor();
    GUARDAR
 ========================= */
 
-function save(){
+function saveAndReturn(){
 
-draft.name=
-document.getElementById(
-"name"
-).value.trim()
-||
-"Santiago Román";
+  const name =
+    document.getElementById(
+      "partName"
+    ).value.trim();
 
 
-draft.start=
-iso(
-monday(
-document.getElementById(
-"start"
-).value
-)
-);
+  currentPart.name =
+    name || "Santiago Román";
 
 
-let a=getParts();
+  const selectedDate =
+    document.getElementById(
+      "partStart"
+    ).value;
 
 
-let i=
-a.findIndex(
-x=>x.id===draft.id
-);
+  if(selectedDate){
+
+    currentPart.start =
+      localDate(
+        getMonday(
+          selectedDate
+        )
+      );
+
+  }
 
 
-if(i>=0){
-
-a[i]=draft;
-
-}else{
-
-a.push(draft);
-
-}
+  const parts =
+    getParts();
 
 
-setParts(a);
+  const index =
+    parts.findIndex(
+      p=>p.id===currentPart.id
+    );
 
 
-toast(
-"Parte guardado correctamente"
-);
+  const copy =
+    JSON.parse(
+      JSON.stringify(
+        currentPart
+      )
+    );
 
 
-setTimeout(
-()=>{
+  if(index===-1){
 
-draft=null;
+    parts.push(copy);
 
-editingId=null;
+  }else{
 
-screen="home";
+    parts[index]=copy;
 
-render();
+  }
 
-},
-700
-);
+
+  saveParts(parts);
+
+
+  showToast(
+    "Parte guardado correctamente"
+  );
+
+
+  setTimeout(
+    function(){
+
+      currentPart=null;
+
+      editingId=null;
+
+      renderHome();
+
+    },
+    700
+  );
 
 }
 
@@ -1431,84 +1508,97 @@ render();
    OBRAS
 ========================= */
 
-function addWork(){
+function addWorkFromHome(){
 
-let x=
-document.getElementById(
-"newWork"
-).value.trim();
-
-
-if(!x){
-
-alert(
-"Escribe el número de obra."
-);
-
-return;
-
-}
+  const work =
+    prompt(
+      "Número de obra:"
+    );
 
 
-let a=getWorks();
+  if(!work){
+
+    return;
+
+  }
 
 
-if(!a.includes(x)){
-
-a.push(x);
-
-setWorks(a);
-
-}
+  const value =
+    work.trim();
 
 
-toast(
-"Obra añadida: "+x
-);
+  if(!value){
+
+    return;
+
+  }
 
 
-editor();
-
-}
-
-
-function manageWorks(){
-
-let current=
-getWorks();
+  const works =
+    getWorks();
 
 
-let x=
-prompt(
-"Obras actuales:\n\n"+
-current.join(", ")+
-"\n\nEscribe el número de una nueva obra:"
-);
+  if(!works.includes(value)){
+
+    works.push(value);
+
+    saveWorks(works);
+
+  }
 
 
-if(
-x &&
-x.trim()
-){
-
-let w=x.trim();
-
-
-if(!current.includes(w)){
-
-current.push(w);
+  showToast(
+    "Obra "+value+" añadida"
+  );
 
 }
 
 
-setWorks(current);
+function addWorkFromEditor(){
+
+  const input =
+    document.getElementById(
+      "newWork"
+    );
 
 
-toast(
-"Obra añadida: "+w
-);
+  const value =
+    input.value.trim();
 
-}
+
+  if(!value){
+
+    alert(
+      "Escribe el número de obra."
+    );
+
+    return;
+
+  }
+
+
+  const works =
+    getWorks();
+
+
+  if(!works.includes(value)){
+
+    works.push(value);
+
+    saveWorks(works);
+
+  }
+
+
+  input.value="";
+
+
+  renderEditor();
+
+
+  showToast(
+    "Obra añadida"
+  );
 
 }
 
@@ -1517,45 +1607,30 @@ toast(
    BORRAR
 ========================= */
 
-function del(id){
+function deletePart(id){
 
-if(
-!confirm(
-"¿Borrar este parte?"
-)
-){
+  if(
+    !confirm(
+      "¿Quieres borrar este parte?"
+    )
+  ){
 
-return;
+    return;
 
-}
-
-
-setParts(
-getParts()
-.filter(
-p=>p.id!==id
-)
-);
+  }
 
 
-render();
+  const parts =
+    getParts()
+    .filter(
+      p=>p.id!==id
+    );
 
-}
+
+  saveParts(parts);
 
 
-/* =========================
-   VOLVER
-========================= */
-
-function goHome(){
-
-draft=null;
-
-editingId=null;
-
-screen="home";
-
-render();
+  renderHome();
 
 }
 
@@ -1564,62 +1639,95 @@ render();
    PDF
 ========================= */
 
-function makePDF(id){
+function preparePrint(
+  part
+){
 
-let p=
-getParts()
-.find(
-x=>x.id===id
-);
-
-
-if(p){
-
-preparePrint(p);
-
-window.print();
-
-}
-
-}
+  const workedDays =
+    part.days.filter(
+      d=>d.worked
+    );
 
 
-function makePDFFromDraft(){
-
-preparePrint(draft);
-
-window.print();
-
-}
+  let rows="";
 
 
-/* =========================
-   PREPARAR PDF
-========================= */
+  workedDays.forEach(
+    function(day){
 
-function preparePrint(p){
-
-let rows=
-p.days.filter(
-d=>d.worked
-);
-
-let h=
-total(p);
+      const index =
+        part.days.indexOf(
+          day
+        );
 
 
-document.getElementById(
-"print"
-).innerHTML=
+      rows+=`
 
-`
+<tr>
+
+<td>
+<b>
+${DAYS[index]}
+</b>
+</td>
+
+<td>
+${formatDate(day.date)}
+</td>
+
+<td>
+${escapeHTML(day.hours)}
+h
+</td>
+
+<td>
+${escapeHTML(day.obra)}
+</td>
+
+<td>
+${escapeHTML(day.obs)}
+</td>
+
+</tr>
+
+`;
+
+    }
+  );
+
+
+  if(!rows){
+
+    rows=`
+
+<tr>
+
+<td
+colspan="5"
+style="text-align:center"
+>
+
+No hay días trabajados.
+
+</td>
+
+</tr>
+
+`;
+
+  }
+
+
+  document.getElementById(
+    "print"
+  ).innerHTML=`
 
 <h1>
 PARTE DE SANTIAGO ROMÁN
 </h1>
 
 
-<div class="meta">
+<div class="print-info">
 
 <div>
 
@@ -1627,7 +1735,9 @@ PARTE DE SANTIAGO ROMÁN
 Nombre:
 </b>
 
-${esc(p.name)}
+${escapeHTML(
+part.name
+)}
 
 </div>
 
@@ -1638,8 +1748,10 @@ ${esc(p.name)}
 Semana:
 </b>
 
-${esc(
-weekText(p.start)
+${escapeHTML(
+weekText(
+part.start
+)
 )}
 
 </div>
@@ -1680,74 +1792,7 @@ Observaciones
 
 <tbody>
 
-
-${
-rows.length
-?
-
-rows
-.map(
-d=>{
-
-let i=
-p.days.indexOf(d);
-
-
-return`
-
-<tr>
-
-<td>
-<b>
-${DAYS[i]}
-</b>
-</td>
-
-<td>
-${fmt(d.date)}
-</td>
-
-<td>
-${esc(d.hours)}
-h
-</td>
-
-<td>
-${esc(d.obra)}
-</td>
-
-<td>
-${esc(d.obs)}
-</td>
-
-</tr>
-
-`;
-
-}
-)
-.join("")
-
-:
-
-`
-
-<tr>
-
-<td
-colspan="5"
->
-
-No hay días trabajados.
-
-</td>
-
-</tr>
-
-`
-
-}
-
+${rows}
 
 </tbody>
 
@@ -1757,7 +1802,7 @@ No hay días trabajados.
 <div class="print-total">
 
 TOTAL:
-${h}
+${totalHours(part)}
 horas
 
 </div>
@@ -1767,11 +1812,44 @@ horas
 }
 
 
+function printCurrentPart(){
+
+  preparePrint(
+    currentPart
+  );
+
+  window.print();
+
+}
+
+
+function printPart(id){
+
+  const part =
+    getParts().find(
+      p=>p.id===id
+    );
+
+
+  if(!part){
+
+    return;
+
+  }
+
+
+  preparePrint(part);
+
+  window.print();
+
+}
+
+
 /* =========================
-   INICIAR
+   ARRANCAR
 ========================= */
 
-render();
+renderHome();
 
 </script>
 
