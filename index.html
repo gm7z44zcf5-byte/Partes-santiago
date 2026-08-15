@@ -10,9 +10,9 @@
 
 <title>Parte de horas semanales</title>
 
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=2">
-<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png?v=2">
-<link rel="apple-touch-icon" href="icon-192.png?v=2">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png?v=4">
+<link rel="apple-touch-icon" href="icon-192.png?v=4">
 <link rel="manifest" href="manifest.json">
 
 <style>
@@ -22,6 +22,7 @@
  --blue:#2563eb;
  --green:#16803d;
  --red:#dc2626;
+ --orange:#f59e0b;
  --bg:#f2f3f7;
  --text:#111827;
  --muted:#6b7280;
@@ -57,7 +58,7 @@ body{
  font-size:34px;
  line-height:1.1;
  margin:0 0 8px;
- font-weight:850;
+ font-weight:900;
 }
 
 .sub{
@@ -102,11 +103,12 @@ button{
  color:#fff;
 }
 
-.blue{background:var(--blue)}
-.green{background:var(--green)}
-.black{background:#111}
+.blue{background:var(--blue);color:#fff}
+.green{background:var(--green);color:#fff}
+.black{background:#111;color:#fff}
 .light{background:#eef0f4;color:#111}
 .red{background:#fee2e2;color:#991b1b}
+.orange{background:#fef3c7;color:#92400e}
 
 .grid2{
  display:grid;
@@ -131,8 +133,27 @@ button{
  background:#eef0f4;
  border-radius:999px;
  padding:10px 16px;
- font-weight:850;
+ font-weight:900;
  white-space:nowrap;
+}
+
+.status{
+ border-radius:18px;
+ padding:15px;
+ margin-bottom:18px;
+ font-weight:800;
+}
+
+.status.pending{
+ background:#fff7ed;
+ color:#9a3412;
+ border:1px solid #fed7aa;
+}
+
+.status.sent{
+ background:#ecfdf5;
+ color:#166534;
+ border:1px solid #bbf7d0;
 }
 
 .day{
@@ -166,7 +187,7 @@ button{
  background:#f0f0f0;
  border-radius:999px;
  padding:9px 14px;
- font-weight:850;
+ font-weight:900;
 }
 
 .day-actions{
@@ -201,13 +222,17 @@ button{
 
 .linegrid{
  display:grid;
- grid-template-columns:90px 1fr 46px;
+ grid-template-columns:105px 1fr 46px;
  gap:8px;
  align-items:center;
 }
 
-.linegrid input,
 .linegrid select{
+ padding:12px;
+ border-radius:13px;
+}
+
+.linegrid input{
  padding:12px;
  border-radius:13px;
 }
@@ -240,6 +265,7 @@ button{
 .summaryrow{
  display:flex;
  justify-content:space-between;
+ gap:15px;
  padding:9px 0;
  border-bottom:1px solid #333;
 }
@@ -281,55 +307,217 @@ button{
  font-weight:700;
  z-index:99;
  box-shadow:0 5px 20px #0005;
+ max-width:90%;
+ text-align:center;
 }
 
-.print-title{
- display:none;
- text-align:center;
- margin-bottom:20px;
+.obra-row{
+ display:flex;
+ gap:8px;
+ margin-top:10px;
+}
+
+.obra-row input{
+ flex:1;
+}
+
+.obra-list{
+ margin-top:12px;
+ display:flex;
+ flex-wrap:wrap;
+ gap:8px;
+}
+
+.obra-chip{
+ background:#eef0f4;
+ border-radius:999px;
+ padding:9px 13px;
+ font-weight:800;
+ display:flex;
+ align-items:center;
+ gap:8px;
+}
+
+.obra-chip button{
+ padding:0;
+ background:none;
+ color:#b42318;
+ font-size:18px;
+}
+
+.send-box{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+ margin-top:12px;
+}
+
+.reminder{
+ background:#eff6ff;
+ border:1px solid #bfdbfe;
+ color:#1e40af;
 }
 
 @media(max-width:600px){
- .grid2{
+
+ .grid2,
+ .send-box{
   grid-template-columns:1fr;
  }
 
  .linegrid{
-  grid-template-columns:82px 1fr 43px;
+  grid-template-columns:90px 1fr 43px;
  }
 
  .hero h1{
   font-size:31px;
  }
+
+}
+
+/* =========================
+   PDF / IMPRESIÓN
+   ========================= */
+
+#printSheet{
+ display:none;
+}
+
+@page{
+ size:A4 portrait;
+ margin:0;
 }
 
 @media print{
- body{
-  background:#fff;
+
+ html,body{
+  width:210mm;
+  height:297mm;
+  margin:0!important;
+  padding:0!important;
+  background:#fff!important;
  }
 
- .no-print{
+ body{
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+ }
+
+ .wrap,
+ .toast{
   display:none!important;
  }
 
- .wrap{
-  max-width:none;
-  padding:0;
- }
-
- .card{
-  box-shadow:none;
-  border:1px solid #ddd;
-  break-inside:avoid;
- }
-
- .day{
-  break-inside:avoid;
+ #printSheet{
+  display:block!important;
+  width:210mm;
+  height:297mm;
+  padding:18mm 17mm 15mm;
+  background:#fff;
+  color:#111;
+  font-family:Arial,Helvetica,sans-serif;
+  position:relative;
  }
 
  .print-title{
-  display:block!important;
+  text-align:center;
+  margin-bottom:7mm;
  }
+
+ .print-title h1{
+  margin:0 0 5mm;
+  font-size:20pt;
+  font-weight:900;
+ }
+
+ .print-info{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+  margin-bottom:5mm;
+ }
+
+ .print-info td{
+  border:1.2px solid #333;
+  height:11mm;
+  padding:2mm 2.5mm;
+  font-size:10pt;
+ }
+
+ .print-info .label{
+  font-weight:900;
+  background:#eee;
+ }
+
+ .print-table{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+ }
+
+ .print-table th,
+ .print-table td{
+  border:1.2px solid #333;
+ }
+
+ .print-table th{
+  background:#eee;
+  text-align:center;
+  font-size:9.5pt;
+  font-weight:900;
+  padding:3mm 2mm;
+ }
+
+ .print-table td{
+  font-size:9.5pt;
+  padding:2mm 2.5mm;
+  height:14mm;
+  vertical-align:middle;
+ }
+
+ .day-col{width:22%}
+ .hours-col{width:11%;text-align:center}
+ .work-col{width:31%}
+ .obs-col{width:36%}
+
+ .day-name{
+  display:block;
+  font-weight:900;
+ }
+
+ .day-date{
+  display:block;
+  font-size:8pt;
+  margin-top:1mm;
+ }
+
+ .print-total{
+  width:100%;
+  border-collapse:collapse;
+ }
+
+ .print-total td{
+  border:1.2px solid #333;
+  font-size:10pt;
+  font-weight:900;
+  padding:3mm 2.5mm;
+ }
+
+ .print-total td:last-child{
+  text-align:right;
+ }
+
+ .print-footer{
+  position:absolute;
+  left:17mm;
+  right:17mm;
+  bottom:10mm;
+  display:flex;
+  justify-content:space-between;
+  font-size:7.5pt;
+  color:#777;
+ }
+
 }
 </style>
 </head>
@@ -338,7 +526,7 @@ button{
 
 <div class="wrap">
 
-<section class="card hero no-print">
+<section class="card hero">
 
 <h1>📋 Parte de horas semanales</h1>
 
@@ -346,9 +534,7 @@ button{
 Control semanal de horas y obras
 </div>
 
-<label for="name">
-Nombre y apellido
-</label>
+<label>Nombre y apellido</label>
 
 <input
  id="name"
@@ -356,9 +542,7 @@ Nombre y apellido
  placeholder="Pon tu nombre y apellido"
 >
 
-<label for="weekStart">
-Semana comienza
-</label>
+<label>Semana comienza</label>
 
 <input
  id="weekStart"
@@ -367,34 +551,72 @@ Semana comienza
 
 <div class="grid2">
 
-<button
- class="btn blue"
- onclick="createWeek()"
->
+<button class="btn blue" onclick="createWeek()">
 Crear / actualizar semana
 </button>
 
-<button
- class="btn green"
- onclick="savePart()"
->
+<button class="btn green" onclick="savePart()">
 💾 Guardar parte
 </button>
 
 </div>
 
-<button
- class="btn black"
- onclick="printPart()"
->
+<button class="btn black" onclick="printPart()">
 🖨️ Imprimir / PDF
 </button>
 
-<button
- class="btn light"
- onclick="newBlankWeek()"
->
+<button class="btn light" onclick="newBlankWeek()">
 ➕ Nueva semana en blanco
+</button>
+
+</section>
+
+
+<!-- OBRAS GUARDADAS -->
+
+<section class="card">
+
+<h2>🏗️ Mis obras</h2>
+
+<div class="small">
+Guarda tus obras para seleccionarlas rápidamente en cada parte.
+</div>
+
+<div class="obra-row">
+
+<input
+ id="newObra"
+ type="text"
+ placeholder="Ej. 10043 - Valencia"
+>
+
+<button class="blue" onclick="addObra()">
+＋ Añadir
+</button>
+
+</div>
+
+<div id="obraList" class="obra-list"></div>
+
+</section>
+
+
+<!-- RECORDATORIO -->
+
+<section class="card reminder">
+
+<h2>🔔 Avisos del parte</h2>
+
+<div class="small" style="color:#1e40af">
+Viernes y lunes: recordar enviar el parte.
+Después de terminar la semana: recordatorio diario mientras esté pendiente.
+</div>
+
+<button
+ class="btn blue"
+ onclick="enableNotifications()"
+>
+🔔 Activar avisos
 </button>
 
 </section>
@@ -402,18 +624,9 @@ Crear / actualizar semana
 
 <section class="card">
 
-<div class="print-title">
-
-<h1>
-PARTE DE HORAS SEMANALES
-</h1>
-
-<div id="printName"></div>
-
-<div id="printDates"></div>
-
+<div id="statusBox" class="status pending">
+⚠️ Parte pendiente de enviar
 </div>
-
 
 <div class="week-head">
 
@@ -428,6 +641,24 @@ Horas de la semana
 </div>
 
 <div id="days"></div>
+
+<div class="send-box">
+
+<button
+ class="green"
+ onclick="markSent()"
+>
+✅ MARCAR COMO ENVIADO
+</button>
+
+<button
+ class="orange"
+ onclick="markPending()"
+>
+↩️ MARCAR PENDIENTE
+</button>
+
+</div>
 
 </section>
 
@@ -445,34 +676,110 @@ Resumen
 
 <div class="summaryrow">
 <span>Total semanal</span>
-<b>
-<span id="sumHours">0</span> h
-</b>
+<b><span id="sumHours">0</span> h</b>
 </div>
 
 <div class="summaryrow">
 <span>Días trabajados</span>
-<b>
-<span id="sumDays">0</span> / 7
-</b>
+<b><span id="sumDays">0</span> / 7</b>
 </div>
 
 </section>
 
 
-<section class="card no-print">
+<section class="card">
 
 <h2>
 Partes guardados
 </h2>
 
 <div class="small">
-Se guardan en este dispositivo. Puedes recuperar semanas anteriores.
+Tus semanas quedan guardadas en este dispositivo.
 </div>
 
 <div id="history"></div>
 
 </section>
+
+</div>
+
+
+<!-- DOCUMENTO PDF -->
+
+<div id="printSheet">
+
+<div class="print-title">
+
+<h1>
+PARTE DE HORAS SEMANALES
+</h1>
+
+</div>
+
+<table class="print-info">
+
+<tr>
+
+<td class="label">Nombre</td>
+<td id="pName"></td>
+
+<td class="label">Mes</td>
+<td id="pMonth"></td>
+
+<td class="label">Año</td>
+<td id="pYear"></td>
+
+</tr>
+
+</table>
+
+
+<table class="print-table">
+
+<thead>
+
+<tr>
+
+<th class="day-col">Día</th>
+<th class="hours-col">Horas</th>
+<th class="work-col">Obra</th>
+<th class="obs-col">Observaciones</th>
+
+</tr>
+
+</thead>
+
+<tbody id="printDays"></tbody>
+
+</table>
+
+
+<table class="print-total">
+
+<tr>
+
+<td>TOTAL HORAS</td>
+
+<td>
+<span id="pTotal">0</span> horas
+</td>
+
+</tr>
+
+</table>
+
+
+<div class="print-footer">
+
+<span>
+Parte de horas semanales
+</span>
+
+<span>
+Página 1 de 1
+</span>
+
+</div>
 
 </div>
 
@@ -495,9 +802,14 @@ const DAYS=[
 let week={
  start:"",
  name:"",
+ sent:false,
  days:[]
 };
 
+
+/* =========================
+   FECHAS
+   ========================= */
 
 function todayISO(){
 
@@ -549,6 +861,17 @@ function fmt(dateStr){
 }
 
 
+function fmtNum(n){
+
+ return Number.isInteger(n)
+ ? String(n)
+ : n.toFixed(2)
+ .replace(/0+$/,"")
+ .replace(/\.$/,"");
+
+}
+
+
 function esc(s){
 
  return String(s??"")
@@ -566,6 +889,195 @@ function esc(s){
 }
 
 
+/* =========================
+   OBRAS
+   ========================= */
+
+function getObras(){
+
+ return JSON.parse(
+  localStorage.getItem("parte_obras") ||
+  "[]"
+ );
+
+}
+
+
+function saveObras(obras){
+
+ localStorage.setItem(
+  "parte_obras",
+  JSON.stringify(obras)
+ );
+
+}
+
+
+function addObra(){
+
+ const input=
+ document.getElementById("newObra");
+
+ const obra=
+ input.value.trim();
+
+ if(!obra)return;
+
+ const obras=getObras();
+
+ if(!obras.includes(obra)){
+
+  obras.push(obra);
+
+  obras.sort(
+   (a,b)=>a.localeCompare(b,"es")
+  );
+
+  saveObras(obras);
+
+ }
+
+ input.value="";
+
+ renderObras();
+
+ toast("Obra guardada");
+
+}
+
+
+function deleteObra(i){
+
+ const obras=getObras();
+
+ obras.splice(i,1);
+
+ saveObras(obras);
+
+ renderObras();
+
+}
+
+
+function renderObras(){
+
+ const obras=getObras();
+
+ const box=
+ document.getElementById("obraList");
+
+ if(!obras.length){
+
+  box.innerHTML=
+  "<span class='small'>Todavía no tienes obras guardadas.</span>";
+
+  return;
+
+ }
+
+ box.innerHTML=
+ obras.map(
+  (obra,i)=>`
+
+   <div class="obra-chip">
+
+    ${esc(obra)}
+
+    <button
+     onclick="deleteObra(${i})"
+     title="Eliminar"
+    >
+     ×
+    </button>
+
+   </div>
+
+  `
+ ).join("");
+
+}
+
+
+/* =========================
+   HORAS
+   ========================= */
+
+function hourOptions(selected){
+
+ let html=
+ `<option value="">Horas</option>`;
+
+ for(let i=0;i<=48;i++){
+
+  const value=i/4;
+
+  const text=fmtNum(value);
+
+  html+=`
+   <option
+    value="${value}"
+    ${String(selected)===String(value)?"selected":""}
+   >
+    ${text} h
+   </option>
+  `;
+
+ }
+
+ html+=`
+  <option value="custom">
+   Otra...
+  </option>
+ `;
+
+ return html;
+
+}
+
+
+function setHours(di,li,value){
+
+ if(value==="custom"){
+
+  const old=
+   week.days[di].lines[li].hours || "";
+
+  const answer=
+   prompt(
+    "Introduce las horas:",
+    old
+   );
+
+  if(answer!==null){
+
+   const number=
+    parseFloat(
+     answer.replace(",",".")
+    );
+
+   if(!isNaN(number) && number>=0 && number<=24){
+
+    week.days[di].lines[li].hours=number;
+
+   }
+
+  }
+
+ }else{
+
+  week.days[di].lines[li].hours=value;
+
+ }
+
+ render();
+
+}
+
+
+/* =========================
+   SEMANA
+   ========================= */
+
 function blankDays(start){
 
  return DAYS.map((name,i)=>({
@@ -575,6 +1087,8 @@ function blankDays(start){
   date:addDays(start,i),
 
   worked:false,
+
+  note:"",
 
   lines:[
    {
@@ -589,42 +1103,7 @@ function blankDays(start){
 }
 
 
-function loadProfile(){
-
- const saved=
- localStorage.getItem("parte_profile_name");
-
- if(saved){
-
-  document.getElementById("name").value=saved;
-
- }
-
-}
-
-
-function saveProfile(){
-
- const n=
- document.getElementById("name")
- .value
- .trim();
-
- if(n){
-
-  localStorage.setItem(
-   "parte_profile_name",
-   n
-  );
-
- }
-
-}
-
-
 function createWeek(){
-
- saveProfile();
 
  const start=
  mondayOf(
@@ -645,16 +1124,16 @@ function createWeek(){
   week=old;
 
   if(!week.days?.length){
-
    week.days=blankDays(start);
-
   }
 
  }else{
 
   week={
    start:start,
-   name:document.getElementById("name").value.trim(),
+   name:
+    document.getElementById("name").value.trim(),
+   sent:false,
    days:blankDays(start)
   };
 
@@ -672,8 +1151,6 @@ function createWeek(){
 
 function newBlankWeek(){
 
- saveProfile();
-
  const start=
  mondayOf(
   document.getElementById("weekStart").value ||
@@ -682,7 +1159,9 @@ function newBlankWeek(){
 
  week={
   start:start,
-  name:document.getElementById("name").value.trim(),
+  name:
+   document.getElementById("name").value.trim(),
+  sent:false,
   days:blankDays(start)
  };
 
@@ -694,6 +1173,10 @@ function newBlankWeek(){
 
 }
 
+
+/* =========================
+   RENDER
+   ========================= */
 
 function render(){
 
@@ -715,6 +1198,10 @@ function render(){
 
  renderHistory();
 
+ renderStatus();
+
+ renderObras();
+
 }
 
 
@@ -734,18 +1221,16 @@ function dayHTML(d,di){
 
    <div>
 
-    <h3>
-    ${d.name}
-    </h3>
+    <h3>${d.name}</h3>
 
     <div class="date">
-    ${fmt(d.date)}
+     ${fmt(d.date)}
     </div>
 
    </div>
 
    <div class="day-total">
-   ${fmtNum(total)} h
+    ${fmtNum(total)} h
    </div>
 
   </div>
@@ -760,7 +1245,7 @@ function dayHTML(d,di){
    >
 
    <span>
-   Trabajé este día
+    Trabajé este día
    </span>
 
   </div>
@@ -779,7 +1264,7 @@ function dayHTML(d,di){
    class="addline"
    onclick="addLine(${di})"
   >
-  ＋ Añadir otra obra / línea
+   ＋ Añadir otra obra / línea
   </button>
 
 
@@ -799,36 +1284,47 @@ function dayHTML(d,di){
 
 function lineHTML(d,di,l,li){
 
+ const obras=getObras();
+
+ const options=
+  `<option value="">Seleccionar obra</option>`+
+  obras.map(
+   o=>`
+    <option
+     value="${esc(o)}"
+     ${l.site===o?"selected":""}
+    >
+     ${esc(o)}
+    </option>
+   `
+  ).join("")+
+  `<option value="__custom">✏️ Escribir otra obra</option>`;
+
  return `
 
  <div class="line">
 
   <div class="linegrid">
 
-   <input
-    type="number"
-    min="0"
-    max="24"
-    step="0.25"
-    placeholder="Horas"
-    value="${esc(l.hours)}"
-    onchange="setLine(${di},${li},'hours',this.value)"
+   <select
+    onchange="changeSite(${di},${li},this.value)"
    >
+    ${options}
+   </select>
 
 
-   <input
-    type="text"
-    placeholder="Obra / lugar"
-    value="${esc(l.site)}"
-    onchange="setLine(${di},${li},'site',this.value)"
+   <select
+    onchange="setHours(${di},${li},this.value)"
    >
+    ${hourOptions(l.hours)}
+   </select>
 
 
    <button
     class="remove"
     onclick="removeLine(${di},${li})"
    >
-   ✕
+    ✕
    </button>
 
   </div>
@@ -845,6 +1341,52 @@ function lineHTML(d,di,l,li){
  </div>
 
  `;
+
+}
+
+
+function changeSite(di,li,value){
+
+ if(value==="__custom"){
+
+  const old=
+   week.days[di].lines[li].site || "";
+
+  const answer=
+   prompt(
+    "Escribe el nombre o número de la obra:",
+    old
+   );
+
+  if(answer!==null){
+
+   const obra=answer.trim();
+
+   week.days[di].lines[li].site=obra;
+
+   if(obra){
+
+    const obras=getObras();
+
+    if(!obras.includes(obra)){
+
+     obras.push(obra);
+
+     saveObras(obras);
+
+    }
+
+   }
+
+  }
+
+ }else{
+
+  week.days[di].lines[li].site=value;
+
+ }
+
+ render();
 
 }
 
@@ -910,6 +1452,10 @@ function removeLine(di,li){
 }
 
 
+/* =========================
+   TOTALES
+   ========================= */
+
 function totalHours(){
 
  return week.days.reduce(
@@ -969,90 +1515,128 @@ function updateTotals(){
 }
 
 
-function fmtNum(n){
-
- return Number.isInteger(n)
- ? String(n)
- : n.toFixed(2)
- .replace(/0+$/,"")
- .replace(/\.$/,"");
-
-}
-
+/* =========================
+   GUARDAR
+   ========================= */
 
 function savePart(){
 
- saveProfile();
-
  week.name=
- document.getElementById("name")
- .value
- .trim();
+  document.getElementById("name").value.trim();
 
  week.start=
- document.getElementById("weekStart")
- .value ||
- week.start;
+  document.getElementById("weekStart").value ||
+  week.start;
 
-
-localStorage.setItem(
- "parte_current",
- JSON.stringify(week)
-);
-
-
-const history=
- JSON.parse(
-  localStorage.getItem("parte_history") ||
-  "[]"
-);
-
-
-const copy=
- JSON.parse(
-  JSON.stringify(week)
-);
-
-
-const idx=
- history.findIndex(
-  x=>x.start===week.start
+ localStorage.setItem(
+  "parte_profile_name",
+  week.name
  );
 
+ localStorage.setItem(
+  "parte_current",
+  JSON.stringify(week)
+ );
 
-if(idx>=0){
+ const history=
+  JSON.parse(
+   localStorage.getItem("parte_history") ||
+   "[]"
+  );
 
- history[idx]=copy;
+ const copy=
+  JSON.parse(JSON.stringify(week));
 
-}else{
+ const idx=
+  history.findIndex(
+   x=>x.start===week.start
+  );
 
- history.unshift(copy);
+ if(idx>=0){
+  history[idx]=copy;
+ }else{
+  history.unshift(copy);
+ }
+
+ localStorage.setItem(
+  "parte_history",
+  JSON.stringify(
+   history.slice(0,30)
+  )
+ );
+
+ renderHistory();
+
+ toast("✅ Parte guardado");
 
 }
 
 
-localStorage.setItem(
- "parte_history",
- JSON.stringify(
-  history.slice(0,20)
- )
-);
+/* =========================
+   ENVIADO
+   ========================= */
 
+function markSent(){
 
-renderHistory();
+ week.sent=true;
 
-toast("Parte guardado correctamente");
+ savePart();
+
+ renderStatus();
+
+ toast("✅ Parte marcado como enviado");
 
 }
 
+
+function markPending(){
+
+ week.sent=false;
+
+ savePart();
+
+ renderStatus();
+
+ toast("Parte marcado como pendiente");
+
+}
+
+
+function renderStatus(){
+
+ const box=
+  document.getElementById("statusBox");
+
+ if(week.sent){
+
+  box.className="status sent";
+
+  box.innerHTML=
+   "✅ Este parte está marcado como ENVIADO.";
+
+ }else{
+
+  box.className="status pending";
+
+  box.innerHTML=
+   "⚠️ Este parte está pendiente de enviar.";
+
+ }
+
+}
+
+
+/* =========================
+   HISTORIAL
+   ========================= */
 
 function renderHistory(){
 
  const h=
- JSON.parse(
-  localStorage.getItem("parte_history") ||
-  "[]"
- );
+  JSON.parse(
+   localStorage.getItem("parte_history") ||
+   "[]"
+  );
 
  document.getElementById("history").innerHTML=
  h.length
@@ -1062,43 +1646,40 @@ function renderHistory(){
   <div class="history-item">
 
    <b>
-   ${esc(x.name||"Sin nombre")}
+    ${esc(x.name||"Sin nombre")}
    </b>
 
    <span>
-   ${fmt(x.start)}
-   ·
-   ${fmtNum(
-    x.days.reduce(
-     (a,d)=>
-      a+
-      d.lines.reduce(
-       (b,l)=>b+(parseFloat(l.hours)||0),
-       0
-      ),
-     0
-    )
-   )} h
+    Semana del ${fmt(x.start)}
+    ·
+    ${fmtNum(
+     x.days.reduce(
+      (a,d)=>
+       a+
+       d.lines.reduce(
+        (b,l)=>
+         b+(parseFloat(l.hours)||0),
+        0
+       ),
+      0
+     )
+    )} h
    </span>
 
-
-   <div
-    class="grid2"
-    style="margin-top:8px"
-   >
+   <div class="grid2" style="margin-top:8px">
 
     <button
      class="light"
      onclick="loadHistory(${i})"
     >
-    Abrir
+     Abrir
     </button>
 
     <button
      class="red"
      onclick="deleteHistory(${i})"
     >
-    Eliminar
+     Eliminar
     </button>
 
    </div>
@@ -1115,10 +1696,10 @@ function renderHistory(){
 function loadHistory(i){
 
  const h=
- JSON.parse(
-  localStorage.getItem("parte_history") ||
-  "[]"
- );
+  JSON.parse(
+   localStorage.getItem("parte_history") ||
+   "[]"
+  );
 
  week=h[i];
 
@@ -1142,10 +1723,10 @@ function loadHistory(i){
 function deleteHistory(i){
 
  const h=
- JSON.parse(
-  localStorage.getItem("parte_history") ||
-  "[]"
- );
+  JSON.parse(
+   localStorage.getItem("parte_history") ||
+   "[]"
+  );
 
  h.splice(i,1);
 
@@ -1159,83 +1740,326 @@ function deleteHistory(i){
 }
 
 
-function printPart(){
+/* =========================
+   PDF
+   ========================= */
 
- saveProfile();
+function buildPrint(){
 
- if(!week.days.length){
-
-  createWeek();
-
- }
-
- week.name=
- document.getElementById("name")
- .value
- .trim();
-
-
- document.getElementById("printName")
+ document.getElementById("pName")
  .textContent=
  week.name||"";
 
+ const date=
+  new Date(week.start+"T12:00:00");
 
- document.getElementById("printDates")
- .textContent=
- `Semana del ${fmt(week.start)} al ${fmt(addDays(week.start,6))}`;
+ let month=
+  date.toLocaleDateString(
+   "es-ES",
+   {month:"long"}
+  );
 
+ month=
+  month.charAt(0).toUpperCase()+
+  month.slice(1);
 
- window.print();
+ document.getElementById("pMonth")
+ .textContent=month;
+
+ document.getElementById("pYear")
+ .textContent=date.getFullYear();
+
+ let total=0;
+
+ const rows=
+  week.days.map(d=>{
+
+   const dayHours=
+    d.lines.reduce(
+     (a,l)=>
+      a+(parseFloat(l.hours)||0),
+     0
+    );
+
+   total+=dayHours;
+
+   const works=
+    d.lines
+    .filter(
+     l=>l.site || l.hours!==""
+    )
+    .map(
+     l=>{
+      const h=
+       parseFloat(l.hours)||0;
+
+      if(l.site && h){
+       return `${fmtNum(h)} h — ${esc(l.site)}`;
+      }
+
+      if(l.site){
+       return esc(l.site);
+      }
+
+      if(h){
+       return `${fmtNum(h)} h`;
+      }
+
+      return "";
+     }
+    )
+    .filter(Boolean)
+    .join("<br>");
+
+   const notes=[
+    ...d.lines
+     .map(l=>l.note)
+     .filter(Boolean),
+    d.note
+   ]
+   .filter(Boolean)
+   .map(esc)
+   .join("<br>");
+
+   return `
+
+    <tr>
+
+     <td class="day-col">
+
+      <span class="day-name">
+       ${d.name}
+      </span>
+
+      <span class="day-date">
+       ${fmt(d.date)}
+      </span>
+
+     </td>
+
+     <td class="hours-col">
+      ${dayHours ? fmtNum(dayHours):""}
+     </td>
+
+     <td class="work-col">
+      ${works}
+     </td>
+
+     <td class="obs-col">
+      ${notes}
+     </td>
+
+    </tr>
+
+   `;
+
+  }).join("");
+
+ document.getElementById("printDays")
+ .innerHTML=rows;
+
+ document.getElementById("pTotal")
+ .textContent=fmtNum(total);
 
 }
 
 
-function toast(msg){
+function printPart(){
 
- const t=
- document.getElementById("toast");
+ savePart();
 
- t.textContent=msg;
+ buildPrint();
 
- t.classList.remove("hidden");
-
- clearTimeout(window.toastTimer);
-
- window.toastTimer=
  setTimeout(
-  ()=>t.classList.add("hidden"),
-  1800
+  ()=>window.print(),
+  100
  );
 
 }
 
 
-document
-.getElementById("name")
-.addEventListener(
- "input",
- e=>{
+/* =========================
+   AVISOS
+   ========================= */
 
-  localStorage.setItem(
-   "parte_profile_name",
-   e.target.value
-  );
+async function enableNotifications(){
 
-  week.name=e.target.value;
+ if(!("Notification" in window)){
 
-  document.getElementById("sumName")
-  .textContent=
-  e.target.value||"—";
+  toast("Este dispositivo no permite avisos del navegador.");
+
+  return;
 
  }
-);
+
+ const permission=
+  await Notification.requestPermission();
+
+ if(permission==="granted"){
+
+  localStorage.setItem(
+   "parte_notifications",
+   "yes"
+  );
+
+  new Notification(
+   "Parte de horas",
+   {
+    body:"Avisos activados correctamente."
+   }
+  );
+
+  checkReminder();
+
+ }else{
+
+  toast("Tienes que permitir las notificaciones.");
+
+ }
+
+}
 
 
-document.getElementById("weekStart").value=
+/*
+ Los avisos de una web estática no pueden garantizar
+ notificaciones en segundo plano cuando el navegador
+ está completamente cerrado.
+
+ Esta función comprueba el estado cuando la aplicación
+ está abierta.
+*/
+
+function checkReminder(){
+
+ if(
+  localStorage.getItem(
+   "parte_notifications"
+  )!=="yes"
+ )return;
+
+ if(week.sent)return;
+
+ const now=
+  new Date();
+
+ const end=
+  new Date(
+   addDays(week.start,6)+"T23:59:59"
+  );
+
+ if(now>end){
+
+  notifyReminder(
+   "El parte sigue pendiente de enviar."
+  );
+
+  return;
+
+ }
+
+ const day=
+  now.getDay();
+
+ if(day===5 || day===1){
+
+  notifyReminder(
+   "Recuerda revisar y enviar tu parte de horas."
+  );
+
+ }
+
+}
+
+
+function notifyReminder(message){
+
+ if(
+  "Notification" in window &&
+  Notification.permission==="granted"
+ ){
+
+  const last=
+   localStorage.getItem(
+    "parte_last_notification"
+   );
+
+  const today=todayISO();
+
+  if(last!==today){
+
+   new Notification(
+    "📋 Parte de horas",
+    {
+     body:message
+    }
+   );
+
+   localStorage.setItem(
+    "parte_last_notification",
+    today
+   );
+
+  }
+
+ }
+
+}
+
+
+/* =========================
+   INICIO
+   ========================= */
+
+document
+ .getElementById("name")
+ .addEventListener(
+  "input",
+  e=>{
+
+   week.name=e.target.value;
+
+   localStorage.setItem(
+    "parte_profile_name",
+    e.target.value
+   );
+
+   document.getElementById("sumName")
+    .textContent=
+    e.target.value||"—";
+
+  }
+ );
+
+
+document
+ .getElementById("newObra")
+ .addEventListener(
+  "keydown",
+  e=>{
+   if(e.key==="Enter"){
+    addObra();
+   }
+  }
+ );
+
+
+document.getElementById("weekStart")
+ .value=
  mondayOf(todayISO());
 
 
-loadProfile();
+const savedName=
+ localStorage.getItem(
+  "parte_profile_name"
+ );
+
+
+if(savedName){
+
+ document.getElementById("name")
+ .value=savedName;
+
+}
 
 
 const current=
@@ -1249,19 +2073,21 @@ if(current){
 
  week=current;
 
- document.getElementById("weekStart")
- .value=current.start;
+ if(!week.days?.length){
+  week.days=blankDays(week.start);
+ }
 
  render();
 
 }else{
 
- const start=mondayOf(todayISO());
+ const start=
+  mondayOf(todayISO());
 
  week={
   start:start,
-  name:
-   localStorage.getItem("parte_profile_name")||"",
+  name:savedName||"",
+  sent:false,
   days:blankDays(start)
  };
 
@@ -1270,14 +2096,23 @@ if(current){
 }
 
 
+checkReminder();
+
+
+setInterval(
+ checkReminder,
+ 60000
+);
+
+
 if("serviceWorker" in navigator){
 
  window.addEventListener(
   "load",
   ()=>{
    navigator.serviceWorker
-   .register("sw.js")
-   .catch(()=>{});
+    .register("sw.js")
+    .catch(()=>{});
   }
  );
 
