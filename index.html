@@ -2,442 +2,1496 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#111111">
+
 <title>Parte De Santiago Román</title>
 
 <style>
 :root{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  color:#111;
+--bg:#f2f2f7;
+--card:#ffffff;
+--text:#111111;
+--muted:#6b7280;
+--line:#e5e7eb;
+--green:#16843d;
+--blue:#1769d1;
+--danger:#b42318;
+--shadow:0 10px 30px rgba(0,0,0,.07);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
-*{box-sizing:border-box}
-body{
-  margin:0;
-  background:#f2f2f7;
-}
-.wrap{
-  max-width:900px;
-  margin:auto;
-  padding:16px;
-}
-h1{
-  text-align:center;
-  margin:8px 0 4px;
-  font-size:28px;
-}
-.sub{
-  text-align:center;
-  color:#666;
-  margin-bottom:18px;
-}
-.card{
-  background:#fff;
-  border-radius:20px;
-  padding:18px;
-  margin-bottom:16px;
-  box-shadow:0 2px 12px #00000010;
-}
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:10px;
-}
-label{
-  display:block;
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:5px;
-}
-input,select,button{
-  width:100%;
-  font:inherit;
-  border-radius:13px;
-  padding:13px;
-  border:1px solid #ccc;
-  background:#fff;
-}
-button{
-  border:0;
-  background:#111;
-  color:#fff;
-  font-weight:700;
-  cursor:pointer;
-}
-.green{background:#16843d}
-.gray{background:#777}
-.danger{background:#b42318}
 
-.week-title{
-  font-size:20px;
-  font-weight:800;
-  margin-bottom:12px;
+*{
+box-sizing:border-box;
 }
-.day{
-  border-top:1px solid #eee;
-  padding:12px 0;
+
+body{
+margin:0;
+background:var(--bg);
+color:var(--text);
 }
-.day:first-child{border-top:0}
-.day-header{
-  display:grid;
-  grid-template-columns:1.5fr .7fr 1.5fr;
-  gap:8px;
-  align-items:center;
+
+.wrap{
+max-width:900px;
+margin:auto;
+padding:18px;
 }
-.date{
-  font-weight:800;
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px;
+margin-bottom:16px;
 }
-.obs{
-  font-size:13px;
-  color:#777;
-  margin-top:5px;
+
+h1{
+margin:0;
+font-size:28px;
 }
-.total{
-  text-align:right;
-  font-size:20px;
-  font-weight:800;
-  margin-top:12px;
+
+.sub{
+color:var(--muted);
+margin-top:5px;
 }
+
+.card{
+background:var(--card);
+border-radius:20px;
+padding:20px;
+margin:14px 0;
+box-shadow:var(--shadow);
+}
+
+h2{
+margin:0 0 15px;
+font-size:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+label{
+display:block;
+font-size:13px;
+font-weight:700;
+margin-bottom:6px;
+}
+
+input,
+select,
+textarea,
+button{
+font:inherit;
+}
+
+input,
+select,
+textarea{
+width:100%;
+border:1px solid #d1d5db;
+border-radius:12px;
+padding:12px;
+background:#fff;
+}
+
+textarea{
+min-height:80px;
+resize:vertical;
+}
+
+button{
+border:0;
+border-radius:12px;
+padding:12px 16px;
+font-weight:750;
+cursor:pointer;
+}
+
+.btn-dark{
+background:#111;
+color:#fff;
+}
+
+.btn-green{
+background:var(--green);
+color:#fff;
+}
+
+.btn-blue{
+background:var(--blue);
+color:#fff;
+}
+
+.btn-light{
+background:#eef0f3;
+color:#111;
+}
+
+.btn-danger{
+background:#fee4e2;
+color:#b42318;
+}
+
 .actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:15px;
+display:flex;
+flex-wrap:wrap;
+gap:9px;
 }
-.hidden{display:none}
-.msg{
-  padding:12px;
-  border-top:1px solid #eee;
+
+.days{
+display:grid;
+gap:12px;
 }
-.mode{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
+
+.day{
+border:1px solid var(--line);
+border-radius:16px;
+padding:15px;
 }
-@media(max-width:600px){
-  .grid{grid-template-columns:1fr}
-  .day-header{
-    grid-template-columns:1.3fr .7fr 1.2fr;
-  }
+
+.day-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:12px;
+}
+
+.day-title{
+font-size:17px;
+font-weight:800;
+}
+
+.switch{
+display:flex;
+align-items:center;
+gap:8px;
+font-size:14px;
+font-weight:700;
+}
+
+.switch input{
+width:20px;
+height:20px;
+}
+
+.day-fields{
+display:grid;
+grid-template-columns:120px 1fr;
+gap:10px;
+}
+
+.day-extra{
+display:grid;
+grid-template-columns:1fr 1.5fr;
+gap:10px;
+margin-top:10px;
+}
+
+.disabled{
+opacity:.45;
+}
+
+.total{
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:20px;
+font-weight:800;
+padding-top:10px;
+}
+
+.total span{
+font-size:26px;
+}
+
+.notice{
+background:#f0f7ff;
+border:1px solid #cfe3ff;
+color:#174a8b;
+padding:12px;
+border-radius:12px;
+font-size:14px;
+}
+
+footer{
+text-align:center;
+color:#777;
+padding:20px;
+}
+
+/* PDF / IMPRESIÓN */
+
+@media print{
+
+@page{
+size:A4;
+margin:12mm;
+}
+
+body{
+background:#fff;
+}
+
+.no-print{
+display:none!important;
+}
+
+.wrap{
+display:none!important;
+}
+
+.print-sheet{
+display:block!important;
+}
+
+.print-header{
+display:flex!important;
+}
+
+.print-table{
+display:table!important;
+}
+
+}
+
+.print-sheet{
+display:none;
+}
+
+.print-header{
+display:none;
+}
+
+.print-table{
+display:none;
+width:100%;
+border-collapse:collapse;
+margin-top:18px;
+font-size:11px;
+}
+
+.print-table th,
+.print-table td{
+border:1px solid #222;
+padding:7px;
+}
+
+.print-table th{
+background:#eee;
+text-align:left;
+}
+
+.print-title{
+text-align:center;
+font-size:22px;
+font-weight:900;
+margin:0 0 14px;
+}
+
+.print-meta{
+display:grid;
+grid-template-columns:1.5fr 1fr 1fr;
+border:1px solid #222;
+}
+
+.print-meta div{
+padding:8px;
+border-right:1px solid #222;
+}
+
+.print-meta div:last-child{
+border-right:0;
+}
+
+.print-total{
+text-align:right;
+font-size:15px;
+font-weight:900;
+margin-top:10px;
+}
+
+.print-sign{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:50px;
+margin-top:45px;
+}
+
+.print-sign div{
+border-top:1px solid #222;
+padding-top:7px;
+text-align:center;
+font-size:11px;
+}
+
+@media(max-width:650px){
+
+.wrap{
+padding:12px;
+}
+
+.grid,
+.day-fields,
+.day-extra{
+grid-template-columns:1fr;
+}
+
+.top{
+align-items:flex-start;
+}
+
+.top .actions{
+justify-content:flex-end;
+}
+
 }
 </style>
 </head>
 
 <body>
 
-<div class="wrap">
+<div class="wrap no-print">
 
-<h1>📋 PARTE DE SANTIAGO ROMÁN</h1>
-<div class="sub">Registro semanal de horas de trabajo</div>
+<div class="top">
+
+<div>
+
+<h1>📋 Parte De Santiago Román</h1>
+
+<div class="sub">
+Registro semanal de horas y obras
+</div>
+
+</div>
+
+</div>
+
+
+<!-- DATOS DEL PARTE -->
 
 <div class="card">
+
+<h2>Datos del parte</h2>
 
 <div class="grid">
 
 <div>
+
 <label>Nombre</label>
-<input id="nombre" value="Santiago Román">
+
+<input
+id="nombre"
+value="Santiago Román"
+>
+
 </div>
 
+
 <div>
-<label>Mes</label>
-<select id="mes">
-<option>Enero</option>
-<option>Febrero</option>
-<option>Marzo</option>
-<option>Abril</option>
-<option>Mayo</option>
-<option>Junio</option>
-<option>Julio</option>
-<option>Agosto</option>
-<option>Septiembre</option>
-<option>Octubre</option>
-<option>Noviembre</option>
-<option>Diciembre</option>
+
+<label>Semana</label>
+
+<input
+id="week"
+type="date"
+>
+
+</div>
+
+</div>
+
+
+<div
+style="margin-top:12px"
+class="notice"
+>
+
+Selecciona el primer día de la semana.
+Puedes marcar cualquier sábado o domingo si realmente trabajaste.
+
+</div>
+
+</div>
+
+
+<!-- HORAS -->
+
+<div class="card">
+
+<h2>Horas de la semana</h2>
+
+<div
+id="days"
+class="days"
+></div>
+
+
+<div class="total">
+
+<span>
+Total de horas
+</span>
+
+<span id="total">
+0 h
+</span>
+
+</div>
+
+</div>
+
+
+<!-- GUARDAR -->
+
+<div class="card">
+
+<h2>
+Guardar / exportar
+</h2>
+
+<div class="actions">
+
+<button
+class="btn-green"
+onclick="saveWeek()"
+>
+💾 Guardar semana
+</button>
+
+
+<button
+class="btn-blue"
+onclick="printPDF()"
+>
+🖨️ Imprimir / Guardar PDF
+</button>
+
+
+<button
+class="btn-light"
+onclick="clearWeek()"
+>
+🧹 Limpiar
+</button>
+
+</div>
+
+
+<p
+id="savedMsg"
+class="sub"
+></p>
+
+</div>
+
+
+<!-- SEMANAS GUARDADAS -->
+
+<div class="card">
+
+<h2>
+Semanas guardadas
+</h2>
+
+<select
+id="savedWeeks"
+onchange="loadSelectedWeek()"
+>
+
+<option value="">
+Selecciona una semana guardada...
+</option>
+
 </select>
+
+
+<div
+class="actions"
+style="margin-top:10px"
+>
+
+<button
+class="btn-light"
+onclick="refreshSavedWeeks()"
+>
+🔄 Actualizar lista
+</button>
+
+
+<button
+class="btn-danger"
+onclick="deleteSelectedWeek()"
+>
+🗑️ Borrar semana seleccionada
+</button>
+
+</div>
+
+</div>
+
+
+<footer>
+
+Parte De Santiago Román ·
+Registro semanal de horas
+
+</footer>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- DOCUMENTO PARA PDF -->
+<!-- ========================= -->
+
+<div
+class="print-sheet"
+id="printSheet"
+>
+
+<div class="print-title">
+
+PARTE DE HORAS SEMANALES
+
+</div>
+
+
+<div class="print-meta">
+
+<div>
+
+<b>Nombre:</b>
+
+<span id="pNombre"></span>
+
+</div>
+
+
+<div>
+
+<b>Semana:</b>
+
+<span id="pSemana"></span>
+
+</div>
+
+
+<div>
+
+<b>Total:</b>
+
+<span id="pTotal"></span>
+
+</div>
+
+</div>
+
+
+<table
+class="print-table"
+id="printTable"
+>
+
+<thead>
+
+<tr>
+
+<th style="width:17%">
+Día
+</th>
+
+<th style="width:13%">
+Fecha
+</th>
+
+<th style="width:10%">
+Horas
+</th>
+
+<th style="width:20%">
+Obra
+</th>
+
+<th>
+Observaciones
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody
+id="printBody"
+>
+</tbody>
+
+</table>
+
+
+<div class="print-total">
+
+TOTAL HORAS:
+
+<span id="pTotal2"></span>
+
+</div>
+
+
+<div class="print-sign">
+
+<div>
+Firma del trabajador
 </div>
 
 <div>
-<label>Año</label>
-<input id="ano" type="number" value="2026">
+Firma / sello de la empresa
 </div>
 
 </div>
 
 </div>
 
-<div class="card">
-
-<h2>Crear semana</h2>
-
-<div class="grid">
-
-<div>
-<label>Fecha inicial</label>
-<input id="inicio" type="date">
-</div>
-
-<div>
-<label>Horas por día</label>
-<input id="horas" type="number" value="8">
-</div>
-
-<div>
-<label>Obra</label>
-<select id="obra"></select>
-</div>
-
-</div>
-
-<br>
-
-<div class="mode">
-<button class="green" onclick="crearSemana()">Crear semana rápidamente</button>
-<button onclick="limpiarSemana()">Limpiar</button>
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="week-title">Parte semanal</div>
-
-<div id="resultado">
-<div class="msg">Crea una semana para empezar.</div>
-</div>
-
-</div>
-
-<div class="card">
-
-<h2>Añadir otra obra</h2>
-
-<p class="sub">La añades una vez y aparecerá en todos los selectores.</p>
-
-<div class="grid">
-
-<input id="nuevaObra" placeholder="N.º de obra">
-
-<button onclick="anadirObra()">AÑADIR OBRA</button>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h2>Datos guardados</h2>
-
-<button class="danger" onclick="borrarDatos()">Borrar todos los datos</button>
-
-</div>
-
-</div>
 
 <script>
 
-let obras = JSON.parse(localStorage.getItem("obrasSantiago") || "[]");
+const dayNames=[
+"Lunes",
+"Martes",
+"Miércoles",
+"Jueves",
+"Viernes",
+"Sábado",
+"Domingo"
+];
 
-function cargarObras(){
+let data=[];
 
-  const select=document.getElementById("obra");
 
-  select.innerHTML="";
+/* FECHAS */
 
-  if(obras.length===0){
-    const op=document.createElement("option");
-    op.value="";
-    op.textContent="Añade una obra";
-    select.appendChild(op);
-    return;
-  }
+function isoDate(d){
 
-  obras.forEach(obra=>{
-    const op=document.createElement("option");
-    op.value=obra;
-    op.textContent=obra;
-    select.appendChild(op);
-  });
+const y=d.getFullYear();
+
+const m=String(
+d.getMonth()+1
+).padStart(2,"0");
+
+const day=String(
+d.getDate()
+).padStart(2,"0");
+
+return `${y}-${m}-${day}`;
+
 }
 
-function anadirObra(){
 
-  const input=document.getElementById("nuevaObra");
-  const obra=input.value.trim();
+function mondayOf(dateStr){
 
-  if(!obra){
-    alert("Escribe el número de obra.");
-    return;
-  }
+const d=
+new Date(
+dateStr+"T12:00:00"
+);
 
-  if(!obras.includes(obra)){
-    obras.push(obra);
-    localStorage.setItem("obrasSantiago",JSON.stringify(obras));
-  }
+const day=d.getDay();
 
-  input.value="";
-  cargarObras();
-  document.getElementById("obra").value=obra;
+const diff=
+day===0
+?-6
+:1-day;
+
+d.setDate(
+d.getDate()+diff
+);
+
+return d;
+
 }
 
-function crearSemana(){
 
-  const inicio=document.getElementById("inicio").value;
-  const horas=document.getElementById("horas").value;
-  const obra=document.getElementById("obra").value;
+function formatDate(d){
 
-  if(!inicio){
-    alert("Selecciona la fecha inicial.");
-    return;
-  }
+return d.toLocaleDateString(
+"es-ES",
+{
+day:"2-digit",
+month:"2-digit",
+year:"numeric"
+}
+);
 
-  if(!obra){
-    alert("Añade primero una obra.");
-    return;
-  }
-
-  const fecha=new Date(inicio+"T12:00:00");
-
-  let total=0;
-  let html="";
-
-  const dias=[
-    "Lunes",
-    "Martes",
-    "Miércoles",
-    "Jueves",
-    "Viernes",
-    "Sábado",
-    "Domingo"
-  ];
-
-  for(let i=0;i<7;i++){
-
-    const d=new Date(fecha);
-    d.setDate(fecha.getDate()+i);
-
-    const dia=d.getDay();
-
-    if(dia===0 || dia===6){
-      html+=`
-      <div class="day">
-        <div class="date">${dias[i]}</div>
-        <div class="obs">Fin de semana</div>
-      </div>`;
-      continue;
-    }
-
-    total+=Number(horas);
-
-    const numero=d.getDate();
-    const mes=d.toLocaleDateString("es-ES",{month:"long"});
-
-    html+=`
-    <div class="day">
-
-      <div class="day-header">
-
-        <div>
-          <div class="date">${dias[i]}, ${numero} de ${mes}</div>
-        </div>
-
-        <div>
-          <input class="horaDia" type="number" value="${horas}" min="0"
-          onchange="actualizarTotal()">
-        </div>
-
-        <div>
-          <select class="obraDia">
-            ${obras.map(o=>`
-              <option ${o===obra?"selected":""}>${o}</option>
-            `).join("")}
-          </select>
-        </div>
-
-      </div>
-
-      <div class="obs">
-        Observaciones:
-        <input placeholder="Observaciones">
-      </div>
-
-    </div>`;
-  }
-
-  html+=`
-  <div class="total">
-    Total: <span id="totalHoras">${total}</span> horas
-  </div>
-
-  <div class="actions">
-    <button class="green" onclick="imprimirParte()">
-      🖨️ IMPRIMIR / GUARDAR PDF
-    </button>
-
-    <button onclick="guardarParte()">
-      💾 GUARDAR PARTE
-    </button>
-  </div>
-  `;
-
-  document.getElementById("resultado").innerHTML=html;
-
-  actualizarTotal();
 }
 
-function actualizarTotal(){
 
-  let total=0;
+/* CREAR LOS 7 DÍAS */
 
-  document.querySelectorAll(".horaDia").forEach(input=>{
-    total+=Number(input.value)||0;
-  });
+function buildDays(){
 
-  const el=document.getElementById("totalHoras");
+const start=
+mondayOf(
+document.getElementById("week").value
+);
 
-  if(el) el.textContent=total;
+const box=
+document.getElementById("days");
+
+box.innerHTML="";
+
+
+if(!data.length){
+
+data=
+dayNames.map(
+(name,i)=>({
+
+name,
+
+date:new Date(
+start.getTime()+
+i*86400000
+),
+
+worked:i<5,
+
+hours:i<5?8:"",
+
+obra:"",
+
+obs:"",
+
+tipo:"Normal"
+
+})
+
+);
+
+}
+else{
+
+data.forEach(
+(x,i)=>
+
+x.date=
+new Date(
+start.getTime()+
+i*86400000
+)
+
+);
+
 }
 
-function limpiarSemana(){
-  document.getElementById("resultado").innerHTML=
-  '<div class="msg">Crea una semana para empezar.</div>';
+
+data.forEach(
+(x,i)=>{
+
+const div=
+document.createElement("div");
+
+div.className=
+"day "+
+(x.worked?"":"disabled");
+
+
+div.innerHTML=`
+
+<div class="day-head">
+
+<div class="day-title">
+
+${x.name}
+·
+${formatDate(x.date)}
+
+</div>
+
+
+<label class="switch">
+
+<input
+
+type="checkbox"
+
+${x.worked?"checked":""}
+
+onchange="toggleDay(${i},this.checked)"
+
+>
+
+Trabajé
+
+</label>
+
+</div>
+
+
+<div class="day-fields">
+
+<div>
+
+<label>
+Horas
+</label>
+
+<input
+
+id="h${i}"
+
+type="number"
+
+min="0"
+
+step="0.5"
+
+value="${x.hours}"
+
+${x.worked?"":"disabled"}
+
+oninput="
+data[${i}].hours=this.value;
+calc();
+"
+
+>
+
+</div>
+
+
+<div>
+
+<label>
+N.º de obra
+</label>
+
+<input
+
+id="o${i}"
+
+value="${escapeAttr(x.obra)}"
+
+${x.worked?"":"disabled"}
+
+oninput="
+data[${i}].obra=this.value
+"
+
+>
+
+</div>
+
+</div>
+
+
+<div class="day-extra">
+
+<div>
+
+<label>
+Tipo
+</label>
+
+<select
+
+id="t${i}"
+
+${x.worked?"":"disabled"}
+
+onchange="
+data[${i}].tipo=this.value
+"
+
+>
+
+<option
+${x.tipo==="Normal"||!x.tipo?"selected":""}
+>
+Normal
+</option>
+
+<option
+${x.tipo==="Extra"?"selected":""}
+>
+Extra
+</option>
+
+<option
+${x.tipo==="Festivo"?"selected":""}
+>
+Festivo
+</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>
+Observaciones
+</label>
+
+<input
+
+id="b${i}"
+
+value="${escapeAttr(x.obs)}"
+
+${x.worked?"":"disabled"}
+
+oninput="
+data[${i}].obs=this.value
+"
+
+>
+
+</div>
+
+</div>
+
+`;
+
+
+box.appendChild(div);
+
+});
+
+
+calc();
+
 }
 
-function guardarParte(){
 
-  const datos={
-    nombre:document.getElementById("nombre").value,
-    mes:document.getElementById("mes").value,
-    ano:document.getElementById("ano").value,
-    fecha:document.getElementById("inicio").value,
-    horas:document.getElementById("horas").value,
-    obra:document.getElementById("obra").value
-  };
+/* ESCAPE */
 
-  localStorage.setItem(
-    "ultimoParteSantiago",
-    JSON.stringify(datos)
-  );
+function escapeAttr(v){
 
-  alert("Parte guardado correctamente.");
+return String(v||"")
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+);
+
 }
 
-function borrarDatos(){
 
-  if(confirm("¿Seguro que quieres borrar todas las obras y datos guardados?")){
-    localStorage.removeItem("obrasSantiago");
-    localStorage.removeItem("ultimoParteSantiago");
-    obras=[];
-    cargarObras();
-    alert("Datos borrados.");
-  }
+/* ACTIVAR / DESACTIVAR DÍA */
+
+function toggleDay(i,checked){
+
+data[i].worked=
+checked;
+
+
+if(!checked){
+
+data[i].hours="";
+
+data[i].obra="";
+
+data[i].obs="";
+
 }
 
-function imprimirParte(){
-  window.print();
+
+buildDays();
+
 }
 
-cargarObras();
+
+/* CALCULAR TOTAL */
+
+function calc(){
+
+const total=
+data.reduce(
+(s,x)=>
+s+
+(
+x.worked
+?
+Number(x.hours)||0
+:
+0
+),
+0
+);
+
+document.getElementById(
+"total"
+).textContent=
+total+" h";
+
+}
+
+
+/* CLAVE DE GUARDADO */
+
+function key(){
+
+return "parte_"+
+document.getElementById(
+"week"
+).value;
+
+}
+
+
+/* GUARDAR */
+
+function saveWeek(){
+
+const payload={
+
+nombre:
+document.getElementById(
+"nombre"
+).value,
+
+week:
+document.getElementById(
+"week"
+).value,
+
+data:
+data.map(
+x=>({
+
+worked:x.worked,
+
+hours:x.hours,
+
+obra:x.obra,
+
+obs:x.obs,
+
+tipo:x.tipo||"Normal"
+
+})
+)
+
+};
+
+
+localStorage.setItem(
+key(),
+JSON.stringify(payload)
+);
+
+
+document.getElementById(
+"savedMsg"
+).textContent=
+"✅ Semana guardada correctamente.";
+
+
+refreshSavedWeeks();
+
+}
+
+
+/* ACTUALIZAR LISTA */
+
+function refreshSavedWeeks(){
+
+const sel=
+document.getElementById(
+"savedWeeks"
+);
+
+sel.innerHTML=
+`
+<option value="">
+Selecciona una semana guardada...
+</option>
+`;
+
+
+Object.keys(localStorage)
+
+.filter(
+k=>k.startsWith("parte_")
+)
+
+.sort()
+
+.forEach(
+k=>{
+
+const opt=
+document.createElement(
+"option"
+);
+
+opt.value=k;
+
+opt.textContent=
+k.replace(
+"parte_",
+""
+);
+
+sel.appendChild(opt);
+
+}
+
+);
+
+}
+
+
+/* CARGAR SEMANA */
+
+function loadSelectedWeek(){
+
+const k=
+document.getElementById(
+"savedWeeks"
+).value;
+
+
+if(!k)return;
+
+
+const p=
+JSON.parse(
+localStorage.getItem(k)
+);
+
+
+document.getElementById(
+"nombre"
+).value=
+p.nombre||
+"Santiago Román";
+
+
+document.getElementById(
+"week"
+).value=
+p.week;
+
+
+data=
+dayNames.map(
+(name,i)=>({
+
+...p.data[i],
+
+name,
+
+date:new Date()
+
+})
+
+);
+
+
+buildDays();
+
+}
+
+
+/* BORRAR SEMANA */
+
+function deleteSelectedWeek(){
+
+const k=
+document.getElementById(
+"savedWeeks"
+).value;
+
+
+if(!k){
+
+alert(
+"Selecciona primero una semana."
+);
+
+return;
+
+}
+
+
+if(
+confirm(
+"¿Borrar esta semana guardada?"
+)
+){
+
+localStorage.removeItem(k);
+
+refreshSavedWeeks();
+
+}
+
+}
+
+
+/* LIMPIAR */
+
+function clearWeek(){
+
+if(
+!confirm(
+"¿Limpiar el parte actual?"
+)
+)return;
+
+
+data=[];
+
+buildDays();
+
+
+document.getElementById(
+"savedMsg"
+).textContent="";
+
+}
+
+
+/* PDF */
+
+function printPDF(){
+
+const start=
+mondayOf(
+document.getElementById(
+"week"
+).value
+);
+
+
+document.getElementById(
+"pNombre"
+).textContent=
+document.getElementById(
+"nombre"
+).value;
+
+
+document.getElementById(
+"pSemana"
+).textContent=
+formatDate(start)
++
+" — "
++
+formatDate(
+new Date(
+start.getTime()+
+6*86400000
+)
+);
+
+
+const total=
+data.reduce(
+(s,x)=>
+s+
+(
+x.worked
+?
+Number(x.hours)||0
+:
+0
+),
+0
+);
+
+
+document.getElementById(
+"pTotal"
+).textContent=
+total+" h";
+
+
+document.getElementById(
+"pTotal2"
+).textContent=
+total+" h";
+
+
+const body=
+document.getElementById(
+"printBody"
+);
+
+body.innerHTML="";
+
+
+data
+.filter(x=>x.worked)
+.forEach(
+x=>{
+
+const tr=
+document.createElement(
+"tr"
+);
+
+
+tr.innerHTML=`
+
+<td>
+<b>${x.name}</b>
+</td>
+
+<td>
+${formatDate(x.date)}
+</td>
+
+<td>
+${x.hours||0} h
+</td>
+
+<td>
+${escapeHtml(x.obra)}
+</td>
+
+<td>
+${escapeHtml(
+(
+x.tipo &&
+x.tipo!=="Normal"
+?
+x.tipo+" · "
+:
+""
+)
++
+x.obs
+)}
+</td>
+
+`;
+
+
+body.appendChild(tr);
+
+}
+);
+
+
+if(
+!body.children.length
+){
+
+const tr=
+document.createElement(
+"tr"
+);
+
+tr.innerHTML=
+`
+<td
+colspan="5"
+style="text-align:center"
+>
+No hay días trabajados.
+</td>
+`;
+
+body.appendChild(tr);
+
+}
+
+
+window.print();
+
+}
+
+
+/* ESCAPE HTML */
+
+function escapeHtml(v){
+
+return String(v||"")
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+);
+
+}
+
+
+/* INICIO */
+
+(function init(){
+
+const now=
+new Date();
+
+
+document.getElementById(
+"week"
+).value=
+isoDate(
+mondayOf(
+isoDate(now)
+)
+);
+
+
+document.getElementById(
+"week"
+).addEventListener(
+"change",
+()=>{
+
+data=[];
+
+buildDays();
+
+}
+);
+
+
+buildDays();
+
+refreshSavedWeeks();
+
+})();
 
 </script>
 
