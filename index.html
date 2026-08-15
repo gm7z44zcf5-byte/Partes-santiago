@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Partes Santiago Román</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f2f2f7;color:#111}
+*{box-sizing:border-box}body{margin:0;background:#f2f2f7}.wrap{max-width:560px;margin:auto;padding:18px}
+h1{margin:5px 0;font-size:26px}.sub{color:#666;margin-bottom:16px}
+.card{background:#fff;border-radius:20px;padding:18px;margin-bottom:14px;box-shadow:0 2px 12px #0001}
+h2{margin-top:0;font-size:20px}label{display:block;font-size:13px;font-weight:700;color:#555;margin:10px 0 6px}
+input,select,button{width:100%;font:inherit;border-radius:13px;padding:13px;border:1px solid #d0d0d5;background:#fff}
+select{font-size:18px}input{font-size:17px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button{border:0;background:#111;color:#fff;font-weight:700;margin-top:12px}.secondary{background:#e7e7eb;color:#111}
+.green{background:#16843d}.hidden{display:none}.msg{padding:11px;border-radius:12px;margin-top:12px;background:#e3f7e8;color:#176b31;font-weight:700}
+.day{border-top:1px solid #eee;padding:12px 0}.day:first-child{border-top:0}.daytop{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.date{font-weight:800;text-transform:capitalize}.pill{background:#eee;border-radius:20px;padding:5px 9px;font-weight:700}
+.work{margin-top:5px}.obs{font-size:13px;color:#777;margin-top:4px}.total{font-size:18px;font-weight:800;text-align:right;margin-top:10px}
+.small{font-size:12px;color:#777;line-height:1.4}.danger{background:#fff0f0;color:#a00020}
+.mode{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mode button{margin-top:0}.mode .active{background:#111;color:#fff}.mode .inactive{background:#e7e7eb;color:#111}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>📋 Partes Santiago</h1>
+<div class="sub">Registra toda la semana de una vez o cambia cada día.</div>
+
+<div class="card">
+<h2>⚡ Crear semana rápidamente</h2>
+<p class="small">Si trabajaste todos los días laborables en la misma obra y con las mismas horas, esto te lo rellena con un solo clic.</p>
+<div class="grid">
+<div><label>Desde</label><input id="desdeRapido" type="date"></div>
+<div><label>Hasta</label><input id="hastaRapido" type="date"></div>
+</div>
+<label>Horas cada día</label>
+<select id="horasRapido">
+<option>1</option><option>2</option><option>3</option><option>4</option>
+<option>5</option><option>6</option><option>7</option><option selected>8</option>
+</select>
+<label>Obra</label>
+<select id="obraRapido"><option value="">Selecciona una obra</option></select>
+<label>Observaciones <span class="small">(opcional)</span></label>
+<input id="obsRapido" placeholder="Opcional">
+<button class="green" type="button" onclick="crearSemana()">CREAR SEMANA COMPLETA ✅</button>
+<div id="msgRapido" class="msg hidden"></div>
+</div>
+
+<div class="card">
+<h2>✏️ Si hubo cambios</h2>
+<div class="mode">
+<button id="btnIndividual" class="active" type="button" onclick="modo('individual')">Día a día</button>
+<button id="btnPeriodo" class="inactive" type="button" onclick="modo('periodo')">Ver periodo</button>
+</div>
+<div id="editor">
+<label>Fecha</label><input id="fecha" type="date">
+<label>Horas trabajadas</label>
+<select id="horas"><option value="">Selecciona las horas</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option selected>8</option></select>
+<label>Obra</label><select id="obra"><option value="">Selecciona una obra</option></select>
+<label>Observaciones <span class="small">(opcional)</span></label>
+<input id="obs" placeholder="Ej.: montaje, avería...">
+<button type="button" onclick="guardar()">GUARDAR / CAMBIAR ESTE DÍA</button>
+</div>
+</div>
+
+<div class="card">
+<h2>📄 Mi parte</h2>
+<div class="grid">
+<div><label>Desde</label><input id="desdeVer" type="date"></div>
+<div><label>Hasta</label><input id="hastaVer" type="date"></div>
+</div>
+<button class="secondary" type="button" onclick="filtrarPeriodo()">VER PERIODO</button>
+<div id="lista"></div><div id="total" class="total"></div>
+<button class="secondary" type="button" onclick="window.print()">🖨️ IMPRIMIR / GUARDAR PDF</button>
+</div>
+
+<div class="card">
+<h3>Añadir otra obra</h3>
+<p class="small">La añades una vez y aparecerá en todos los selectores.</p>
+<div class="grid">
+<input id="nuevaObra" inputmode="numeric" placeholder="N.º de obra">
+<button type="button" onclick="addObra()">AÑADIR OBRA</button>
+</div>
+</div>
+
+<div class="card"><button class="danger" type="button" onclick="borrarTodo()">Borrar todos los datos</button></div>
+</div>
+
+<script>
+const KEY='santiago_partes_v4', WORKS='santiago_obras_v4';
+const $=id=>document.getElementById(id);
+function today(){return new Date().toISOString().slice(0,10)}
+function getData(){return JSON.parse(localStorage.getItem(KEY)||'[]')}
+function getWorks(){
+ let ws=JSON.parse(localStorage.getItem(WORKS)||'["10043","30339"]');
+ ["10043","30339"].forEach(w=>{if(!ws.includes(w))ws.push(w)});
+ localStorage.setItem(WORKS,JSON.stringify(ws));
+ return ws;
+}
+function setData(x){localStorage.setItem(KEY,JSON.stringify(x))}
+function setWorks(x){localStorage.setItem(WORKS,JSON.stringify(x))}
+function fmt(s){return new Date(s+'T12:00:00').toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}
+
+function init(){
+ let t=today();['desdeRapido','hastaRapido','fecha','desdeVer','hastaVer'].forEach(id=>$(id).value=t);
+ loadWorks(); render(getData());
+}
+function loadWorks(){
+ let ws=getWorks();
+ ['obraRapido','obra'].forEach(id=>{
+   let old=$(id).value;
+   $(id).innerHTML='<option value="">Selecciona una obra</option>'+ws.map(w=>`<option value="${w}">${w}</option>`).join('');
+   if(ws.includes(old))$(id).value=old;
+ });
+}
+function addObra(){
+ let v=$('nuevaObra').value.trim();if(!v){alert('Escribe el número de obra.');return}
+ let ws=getWorks();if(!ws.includes(v)){ws.push(v);setWorks(ws)}loadWorks();$('obraRapido').value=v;$('obra').value=v;$('nuevaObra').value='';
+}
+function crearSemana(){
+ let d=$('desdeRapido').value,h=$('hastaRapido').value,hrs=Number($('horasRapido').value),w=$('obraRapido').value,o=$('obsRapido').value.trim();
+ if(!d||!h||!w){alert('Selecciona Desde, Hasta y Obra.');return}
+ if(d>h){alert('La fecha Desde no puede ser posterior a Hasta.');return}
+ let a=getData(), cur=new Date(d+'T12:00:00'), end=new Date(h+'T12:00:00'), n=0;
+ while(cur<=end){
+   let dow=cur.getDay();
+   if(dow>=1&&dow<=5){
+     let f=cur.toISOString().slice(0,10), item={fecha:f,horas:hrs,obra:w,obs:o};
+     let i=a.findIndex(x=>x.fecha===f);if(i>=0)a[i]=item;else a.push(item);n++;
+   }
+   cur.setDate(cur.getDate()+1);
+ }
+ a.sort((x,y)=>x.fecha.localeCompare(y.fecha));setData(a);render(a);
+ $('msgRapido').textContent=`✅ Listo: ${n} días laborables creados · ${hrs} h · obra ${w}`;
+ $('msgRapido').classList.remove('hidden');
+ setTimeout(()=>$('msgRapido').classList.add('hidden'),3000);
+}
+function guardar(){
+ let f=$('fecha').value,h=Number($('horas').value),w=$('obra').value,o=$('obs').value.trim();
+ if(!f||!h||!w){alert('Selecciona fecha, horas y obra.');return}
+ let a=getData(),item={fecha:f,horas:h,obra:w,obs:o},i=a.findIndex(x=>x.fecha===f);
+ if(i>=0)a[i]=item;else a.push(item);a.sort((x,y)=>x.fecha.localeCompare(y.fecha));setData(a);render(a);
+}
+function render(a){
+ if(!a.length){$('lista').innerHTML='<p class="small">No hay jornadas guardadas.</p>';$('total').textContent='';return}
+ $('lista').innerHTML=a.map(x=>`<div class="day"><div class="daytop"><div class="date">${fmt(x.fecha)}</div><div class="pill">${x.horas} h</div></div><div class="work">🏗️ Obra <b>${x.obra}</b></div>${x.obs?`<div class="obs">📝 ${x.obs}</div>`:''}</div>`).join('');
+ $('total').textContent='Total: '+a.reduce((s,x)=>s+x.horas,0)+' horas';
+}
+function filtrarPeriodo(){
+ let d=$('desdeVer').value,h=$('hastaVer').value;if(!d||!h){alert('Selecciona Desde y Hasta.');return}
+ if(d>h){alert('La fecha Desde no puede ser posterior a Hasta.');return}
+ render(getData().filter(x=>x.fecha>=d&&x.fecha<=h));
+}
+function modo(m){
+ $('btnIndividual').className=m==='individual'?'active':'inactive';
+ $('btnPeriodo').className=m==='periodo'?'active':'inactive';
+ $('editor').style.display=m==='individual'?'block':'none';
+}
+function borrarTodo(){if(confirm('¿Borrar todos los partes?')){localStorage.removeItem(KEY);render([])}}
+init();
+</script>
+</body>
+</html>
